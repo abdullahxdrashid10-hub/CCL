@@ -7,9 +7,8 @@ const BRAND_ORANGE = '#F5941E';
 export default function Footer() {
   return (
     <footer
-      className="relative overflow-hidden px-6 pb-12 pt-20 md:px-12"
+      className="relative overflow-hidden bg-transparent px-6 pb-12 pt-20 md:px-12"
       style={{
-        background: '#020202',
         borderTop: `1px solid ${BRAND_ORANGE}15`,
       }}
     >
