@@ -65,17 +65,15 @@ const CORRIDORS = [
 export default function PortfolioPage() {
   return (
     <div className="relative overflow-hidden py-12 md:py-20">
-      {/* Cinematic Ocean Trade Corridor Dimmed & Blurred Full-Page Background */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      {/* Cinematic Ocean Trade Corridor Dimmed Hero Backdrop */}
+      <div className="pointer-events-none absolute left-0 right-0 top-0 z-0 h-[520px] overflow-hidden md:h-[620px]">
         <img
           src="/images/bg-portfolio-corridors.jpg"
-          alt=""
-          className="h-full w-full object-cover object-center opacity-20 brightness-90 contrast-[1.05] blur-[3px] scale-105"
+          alt="Transcontinental Ocean Shipping Corridor"
+          className="h-full w-full object-cover object-center opacity-40 brightness-95 contrast-[1.05]"
         />
-        {/* Ambient Dimming & Radial Vignette Overlays */}
-        <div className="absolute inset-0 bg-[#030303]/80" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/70 via-transparent to-[#030303]/90" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_10%,#030303_90%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-[#030303]/40 to-[#030303]/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/80 via-transparent to-[#030303]" />
       </div>
 
       {/* Ambient background glow orbs */}

@@ -12,13 +12,12 @@ export default function AboutPage() {
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <img
           src="/images/bg-about-leadership.jpg"
-          alt=""
-          className="h-full w-full object-cover object-center opacity-25 brightness-90 contrast-[1.05] blur-[3px] scale-105"
+          alt="Connect Continents Operations Hub"
+          className="h-full w-full object-cover object-center opacity-30 brightness-90 contrast-[1.05] filter blur-[2px] scale-105"
         />
-        {/* Ambient Dimming & Radial Vignette Overlays */}
-        <div className="absolute inset-0 bg-[#030303]/80" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/70 via-transparent to-[#030303]/90" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_10%,#030303_90%)]" />
+        {/* Soft atmospheric dimming and subtle vignette */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/75 via-[#030303]/50 to-[#030303]/85" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,#030303_85%)]" />
       </div>
 
       {/* Ambient background glow orbs */}
@@ -73,7 +72,7 @@ export default function AboutPage() {
       </div>
 
       {/* ── Verified Narrative Timeline & Founder Cards ── */}
-      <NarrativeTimeline />
+      <NarrativeTimeline transparentBg />
 
       {/* ── Bottom CTA ── */}
       <div className="mx-auto mt-16 max-w-4xl px-6 text-center">
