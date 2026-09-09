@@ -12,15 +12,16 @@ export default function ContactPage() {
 
   return (
     <div className="relative overflow-hidden py-12 md:py-16">
-      {/* Cinematic Operations Command Center Dimmed Hero Backdrop */}
-      <div className="pointer-events-none absolute top-0 left-0 right-0 h-[520px] md:h-[620px] overflow-hidden z-0">
+      {/* Cinematic Operations Command Center Dimmed & Blurred Full-Page Background */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <img
           src="/images/dispatch-operations.jpg"
           alt="Connect Continents Operations Command Center"
-          className="h-full w-full object-cover object-center opacity-40 brightness-95 contrast-[1.05]"
+          className="h-full w-full object-cover object-center opacity-30 brightness-90 contrast-[1.05] filter blur-[2px] scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-[#030303]/40 to-[#030303]/60" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/80 via-transparent to-[#030303]" />
+        {/* Soft atmospheric dimming and subtle vignette */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/75 via-[#030303]/50 to-[#030303]/85" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,#030303_85%)]" />
       </div>
 
       {/* ── Header ── */}
@@ -65,7 +66,7 @@ export default function ContactPage() {
       </div>
 
       {/* ── 3-Step Fluid Contact Form with pre-selection support ── */}
-      <FluidContactForm initialService={initialService} />
+      <FluidContactForm initialService={initialService} transparentBg />
     </div>
   );
 }

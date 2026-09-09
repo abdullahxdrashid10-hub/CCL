@@ -1119,7 +1119,10 @@ function SuccessPanel({ data, onReset }) {
    MAIN EXPORT — FluidContactForm
    ═══════════════════════════════════════════════════════════════ */
 
-export default function FluidContactForm({ initialService = '' }) {
+export default function FluidContactForm({
+  initialService = '',
+  transparentBg = false,
+}) {
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -1235,8 +1238,8 @@ export default function FluidContactForm({ initialService = '' }) {
   return (
     <section
       id="contact-form"
-      className="relative overflow-hidden bg-obsidian py-24 md:py-32"
-      style={{ background: OBSIDIAN }}
+      className={`relative overflow-hidden py-24 md:py-32 ${transparentBg ? '' : 'bg-obsidian'}`}
+      style={{ background: transparentBg ? 'transparent' : OBSIDIAN }}
     >
       {/* Background decorations */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
