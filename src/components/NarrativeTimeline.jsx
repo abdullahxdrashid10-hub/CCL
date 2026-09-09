@@ -491,7 +491,7 @@ function GridBackground() {
    MAIN EXPORT — NarrativeTimeline (About Section)
    ═══════════════════════════════════════════════════════════════ */
 
-export default function NarrativeTimeline() {
+export default function NarrativeTimeline({ transparentBg = false }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -515,7 +515,7 @@ export default function NarrativeTimeline() {
       id="about"
       ref={containerRef}
       className="relative overflow-hidden py-24 md:py-32"
-      style={{ background: BG_COLOR }}
+      style={{ background: transparentBg ? 'transparent' : BG_COLOR }}
     >
       <GridBackground />
 
@@ -532,12 +532,14 @@ export default function NarrativeTimeline() {
       </div>
 
       {/* Bottom fade */}
-      <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-32"
-        style={{
-          background: `linear-gradient(to bottom, transparent, ${BG_COLOR})`,
-        }}
-      />
+      {!transparentBg && (
+        <div
+          className="pointer-events-none absolute bottom-0 left-0 right-0 h-32"
+          style={{
+            background: `linear-gradient(to bottom, transparent, ${BG_COLOR})`,
+          }}
+        />
+      )}
     </section>
   );
 }
