@@ -7,9 +7,29 @@ const BRAND_ORANGE = '#F5941E';
 
 export default function AboutPage() {
   return (
-    <div className="py-12 md:py-16">
+    <div className="relative overflow-hidden py-12 md:py-16">
+      {/* Cinematic Operations Hub Dimmed Background */}
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-20">
+        <img
+          src="/images/bg-about-leadership.jpg"
+          alt=""
+          className="h-full w-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/90 via-[#030303]/80 to-[#030303]" />
+      </div>
+
+      {/* Ambient background glow orbs */}
+      <div
+        className="pointer-events-none absolute -left-32 top-20 h-96 w-96 rounded-full opacity-15 blur-[100px]"
+        style={{ background: '#1A3580' }}
+      />
+      <div
+        className="pointer-events-none absolute -right-32 top-40 h-96 w-96 rounded-full opacity-10 blur-[100px]"
+        style={{ background: BRAND_ORANGE }}
+      />
+
       {/* ── Header ── */}
-      <div className="mx-auto mb-12 max-w-3xl px-6 text-center">
+      <div className="relative z-10 mx-auto mb-12 max-w-3xl px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
