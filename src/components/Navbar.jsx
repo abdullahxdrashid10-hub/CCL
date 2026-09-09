@@ -42,6 +42,20 @@ export default function Navbar() {
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
+  // Smart seamless Get Quote navigation: smooth scrolls if already on /contact
+  const handleGetQuoteClick = (e) => {
+    setMobileMenuOpen(false);
+    if (location.pathname === '/contact') {
+      e.preventDefault();
+      const formEl = document.getElementById('contact-form');
+      if (formEl) {
+        formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 350, behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <header className="fixed left-0 right-0 top-0 z-50 transition-all duration-300">
       <nav
@@ -145,25 +159,44 @@ export default function Navbar() {
           </div>
         </LayoutGroup>
 
-        {/* Quick CTA Action with Magnetic physics */}
+        {/* Quick CTA Action with Magnetic physics & Outperforming Kinetic Glow */}
         <div className="hidden items-center gap-3 md:flex">
           <MagneticButton strength={0.25}>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-amber-500 transition-all duration-300 hover:text-[#030303] hover:shadow-[0_0_25px_rgba(245,148,30,0.4)]"
+              onClick={handleGetQuoteClick}
+              className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-xl px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-amber-500 transition-all duration-300 hover:text-black hover:shadow-[0_0_30px_rgba(245,148,30,0.55)] active:scale-95"
               style={{
-                background: `linear-gradient(135deg, ${BRAND_ORANGE}25, ${BRAND_ORANGE}10)`,
-                border: `1.5px solid ${BRAND_ORANGE}50`,
+                background: `linear-gradient(135deg, ${BRAND_ORANGE}22, ${BRAND_ORANGE}0c)`,
+                border: `1.5px solid ${BRAND_ORANGE}55`,
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = BRAND_ORANGE;
+                e.currentTarget.style.borderColor = BRAND_ORANGE;
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = `linear-gradient(135deg, ${BRAND_ORANGE}25, ${BRAND_ORANGE}10)`;
+                e.currentTarget.style.background = `linear-gradient(135deg, ${BRAND_ORANGE}22, ${BRAND_ORANGE}0c)`;
+                e.currentTarget.style.borderColor = `${BRAND_ORANGE}55`;
               }}
             >
-              <span>Get Quote</span>
-              <ArrowUpRight size={14} />
+              {/* Luminous light-sweep sheen on hover */}
+              <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
+
+              {/* Real-time active operations desk indicator dot */}
+              <span className="relative flex h-2 w-2 items-center justify-center">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400 group-hover:bg-black transition-colors duration-200" />
+              </span>
+
+              <span className="relative z-10 transition-colors duration-200">
+                Get Quote
+              </span>
+
+              {/* Kinetic Forward Arrow */}
+              <ArrowUpRight
+                size={14}
+                className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
             </Link>
           </MagneticButton>
         </div>
@@ -210,10 +243,19 @@ export default function Navbar() {
 
               <Link
                 to="/contact"
-                className="mt-2 rounded-xl py-3 text-center font-display font-mono text-xs font-semibold uppercase tracking-wider text-black"
+                onClick={handleGetQuoteClick}
+                className="group relative mt-2 flex items-center justify-center gap-2.5 overflow-hidden rounded-xl py-3.5 text-center font-display font-mono text-xs font-semibold uppercase tracking-wider text-black shadow-lg transition-all duration-300 hover:shadow-[0_0_25px_rgba(245,148,30,0.5)] active:scale-95"
                 style={{ background: BRAND_ORANGE }}
               >
-                Request a Quote
+                <span className="relative flex h-2 w-2 items-center justify-center">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-black/40 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-black" />
+                </span>
+                <span>Request a Quote</span>
+                <ArrowUpRight
+                  size={14}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
               </Link>
             </div>
           </motion.div>

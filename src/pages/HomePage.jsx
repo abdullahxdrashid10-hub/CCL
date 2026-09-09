@@ -150,15 +150,24 @@ export default function HomePage() {
             <MagneticButton strength={0.2}>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 rounded-2xl px-8 py-4 font-display text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_40px_rgba(245,148,30,0.4)]"
+                className="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl px-8 py-4 font-display text-sm font-semibold text-black shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_45px_rgba(245,148,30,0.55)] active:scale-95"
                 style={{
                   background: BRAND_ORANGE,
-                  color: '#030303',
                   boxShadow: `0 0 30px ${BRAND_ORANGE}35`,
                 }}
               >
-                <span>Request a Quote</span>
-                <ArrowRight size={16} />
+                {/* Luminous light-sweep sheen */}
+                <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
+
+                <span className="relative flex h-2 w-2 items-center justify-center">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-black/40 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-black" />
+                </span>
+                <span className="relative z-10">Request a Quote</span>
+                <ArrowRight
+                  size={16}
+                  className="relative z-10 transition-transform duration-300 group-hover:translate-x-1"
+                />
               </Link>
             </MagneticButton>
 
