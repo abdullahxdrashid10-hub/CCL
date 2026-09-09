@@ -125,11 +125,8 @@ function ServiceCard({ service, index, isPreview = false }) {
       <div
         className="service-card group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-3xl p-6 sm:p-7"
         style={{
-          background:
-            'linear-gradient(180deg, rgba(16, 22, 36, 0.85) 0%, rgba(6, 8, 14, 0.95) 100%)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
+          background: 'linear-gradient(180deg, #101625 0%, #070a12 100%)',
+          border: '1px solid rgba(255, 255, 255, 0.08)',
         }}
       >
         {/* Dynamic ambient background glow flare on hover */}
@@ -261,12 +258,12 @@ function ServiceCard({ service, index, isPreview = false }) {
                 </span>
               </button>
 
-              {/* Smooth Scope Expand */}
+              {/* Scope Checklist (expandable on click) */}
               <div
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${
                   showFullScope
                     ? 'mt-2 max-h-52 opacity-100'
-                    : 'max-h-0 opacity-0 group-hover:mt-2 group-hover:max-h-52 group-hover:opacity-100'
+                    : 'max-h-0 opacity-0'
                 }`}
               >
                 <ul className="space-y-1.5 rounded-xl border border-white/5 bg-black/40 p-2">

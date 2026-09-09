@@ -149,30 +149,30 @@ textarea:focus-visible,
 /* ===== Service Card Interactive Hover & Scale Engine ===== */
 .service-card {
   transition:
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.35s ease-out,
-    background 0.35s ease-out;
-  will-change: transform, box-shadow;
+    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.25s ease-out;
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .service-card:hover {
-  transform: translateY(-8px) scale(1.025) !important;
+  transform: translate3d(0, -6px, 0) scale3d(1.02, 1.02, 1) !important;
   box-shadow:
-    0 25px 60px -15px rgba(0, 0, 0, 0.9),
-    0 0 40px rgba(245, 148, 30, 0.3) !important;
+    0 18px 40px -10px rgba(0, 0, 0, 0.85),
+    0 0 25px rgba(245, 148, 30, 0.22) !important;
   border-color: rgba(245, 148, 30, 0.6) !important;
 }
 
 .service-image {
-  transition:
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.4s ease-out;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .service-card:hover .service-image {
-  transform: scale(1.08) !important;
-  filter: contrast(1.05) brightness(1.05) !important;
+  transform: scale3d(1.06, 1.06, 1) !important;
 }
 
 .service-icon {

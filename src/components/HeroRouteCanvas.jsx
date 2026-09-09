@@ -93,11 +93,6 @@ export default function HeroRouteCanvas() {
             <stop offset="100%" stopColor={BRAND_BLUE} stopOpacity="0.1" />
           </linearGradient>
 
-          {/* Radial glow filter */}
-          <filter id="glow-route" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
         </defs>
 
         {/* Abstract subtle grid lines for logistics technical feel */}
@@ -134,8 +129,7 @@ export default function HeroRouteCanvas() {
             d={route.path}
             fill="none"
             stroke="url(#route-gradient-primary)"
-            strokeWidth="1.8"
-            filter="url(#glow-route)"
+            strokeWidth="2"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{
               pathLength: [0, 1, 1],
