@@ -34,129 +34,272 @@ const SERVICE_CAPABILITIES = {
   'cargo-insurance': ['Upfront Terms Review', 'Booking-Time Protection', 'Transparent Coverage', 'Claims Guidance'],
 };
 
-function ServiceCard({ service, index, isPreview }) {
+// Mode-specific operational specifications (specs) verified against CCL service matrix
+const SERVICE_SPECS = {
+  'ocean-freight': [
+    { label: 'TRANSIT TIME', value: '14–28 Days Global' },
+    { label: 'LOAD CAPACITY', value: 'FCL & LCL Consolidated' },
+    { label: 'VISIBILITY', value: '24/7 AIS Satellite' },
+    { label: 'CARRIER NETWORK', value: 'Direct Tier-1 Lines' },
+  ],
+  'air-freight': [
+    { label: 'TRANSIT SPEED', value: '24–72 Hrs Priority' },
+    { label: 'SCHEDULE TYPE', value: 'Next-Flight-Out (NFO)' },
+    { label: 'MARKUP POLICY', value: '0% Hidden Markups' },
+    { label: 'CARRIER ACCESS', value: 'Direct Global Airlines' },
+  ],
+  'customs-brokerage': [
+    { label: 'CLEARANCE TIMING', value: 'Pre-Arrival Filing' },
+    { label: 'DOCUMENTATION', value: '100% Digital EDI Manifest' },
+    { label: 'AUDIT STATUS', value: 'HTS & Tariff Pre-Cleared' },
+    { label: 'GATEWAY SCOPE', value: 'Major Sea & Air Hubs' },
+  ],
+  'warehousing': [
+    { label: 'STORAGE MODEL', value: 'Short & Long-Term' },
+    { label: 'FACILITY CLASS', value: 'Bonded & Secure Hubs' },
+    { label: 'INVENTORY SYNC', value: 'Real-Time WMS Portal' },
+    { label: 'HANDLING SCOPE', value: 'Palletized & Cross-Dock' },
+  ],
+  'land-trucking': [
+    { label: 'TRANSIT CORRIDOR', value: 'Port-to-Door Direct' },
+    { label: 'FLEET CAPACITY', value: 'Dedicated FTL & LTL' },
+    { label: 'TELEMETRY', value: 'Active GPS Route Sync' },
+    { label: 'COORDINATION', value: 'Unified Transit Chain' },
+  ],
+  'cargo-insurance': [
+    { label: 'POLICY TERMS', value: 'Upfront Plain Language' },
+    { label: 'COVERAGE SCOPE', value: 'All-Risk Door-to-Door' },
+    { label: 'BIND TIMELINE', value: 'Instant at Booking' },
+    { label: 'CLAIMS SUPPORT', value: 'Dedicated In-House Advocate' },
+  ],
+};
+
+function ServiceCard({ service, index }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [showFullScope, setShowFullScope] = useState(false);
   const Icon = service.icon;
   const capabilities = SERVICE_CAPABILITIES[service.id] || [];
+  const specs = SERVICE_SPECS[service.id] || [];
 
   return (
     <motion.div
-      /* NOTE: No `layout` prop here — it conflicts with CSS group-hover transitions */
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96 }}
-      transition={{ duration: 0.35, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{
-        borderColor: `${BRAND_ORANGE}40`,
-        boxShadow: `0 0 35px ${BRAND_ORANGE}15, 0 10px 40px rgba(0,0,0,0.7)`,
-        transition: { duration: 0.3, ease: 'easeOut' },
-      }}
-      className="group relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between overflow-hidden"
+      transition={{ duration: 0.4, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`group relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between overflow-hidden transition-all duration-500 ease-out ${
+        isHovered
+          ? '-translate-y-2.5 border-amber-500/60 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_35px_rgba(245,148,30,0.22)]'
+          : 'border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.6)]'
+      }`}
       style={{
-        background: 'linear-gradient(180deg, rgba(16, 20, 30, 0.75) 0%, rgba(8, 10, 15, 0.9) 100%)',
+        background: 'linear-gradient(180deg, rgba(16, 22, 36, 0.85) 0%, rgba(6, 8, 14, 0.95) 100%)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
-        border: '1px solid rgba(255, 255, 255, 0.07)',
+        borderWidth: '1px',
+        borderStyle: 'solid',
       }}
     >
-      {/* Ambient background glow on hover */}
+      {/* Dynamic ambient background glow flare on hover */}
       <div
-        className="absolute -top-24 -right-24 w-48 h-48 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl"
-        style={{ background: `${BRAND_ORANGE}25` }}
+        className={`absolute -top-24 -right-24 w-56 h-56 rounded-full pointer-events-none transition-all duration-700 blur-3xl ${
+          isHovered ? 'opacity-100 scale-125' : 'opacity-0 scale-90'
+        }`}
+        style={{ background: 'radial-gradient(circle, rgba(245, 148, 30, 0.35) 0%, rgba(26, 53, 128, 0.2) 70%, transparent 100%)' }}
+      />
+
+      {/* Subtle top border beam highlight */}
+      <div
+        className={`absolute top-0 left-8 right-8 h-[1px] transition-all duration-500 ${
+          isHovered ? 'opacity-100 bg-gradient-to-r from-transparent via-amber-400 to-transparent' : 'opacity-0'
+        }`}
       />
 
       <div>
         {/* Service Image Header */}
         {service.image && (
-          <div className="relative h-44 sm:h-48 w-full rounded-2xl overflow-hidden mb-6 border border-white/10 bg-neutral-900">
+          <div className="relative h-44 sm:h-52 w-full rounded-2xl overflow-hidden mb-6 border border-white/10 bg-neutral-900 shadow-inner">
             <img
               src={service.image}
               alt={service.title}
-              className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+              className={`w-full h-full object-cover object-center transition-all duration-700 ease-out ${
+                isHovered ? 'scale-108 brightness-105 contrast-[1.05]' : 'scale-100 brightness-95'
+              }`}
               loading="lazy"
             />
             {/* Cinematic Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0d14] via-black/20 to-black/40 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#06080e] via-black/30 to-black/40 pointer-events-none" />
 
-            {/* Overlaid Icon Badge */}
+            {/* Overlaid Icon Badge with hover tilt */}
             <div className="absolute top-3 left-3">
               <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center backdrop-blur-md shadow-lg transition-transform duration-500 group-hover:scale-110"
+                className={`w-11 h-11 rounded-xl flex items-center justify-center backdrop-blur-md shadow-xl transition-all duration-500 ${
+                  isHovered
+                    ? 'scale-110 -rotate-3 border-amber-500 shadow-[0_0_20px_rgba(245,148,30,0.5)]'
+                    : 'border-white/15'
+                }`}
                 style={{
-                  background: `linear-gradient(135deg, ${BRAND_BLUE}90, ${BRAND_BLUE}40)`,
-                  border: `1px solid ${BRAND_BLUE}`,
-                  color: BRAND_ORANGE,
+                  background: isHovered
+                    ? `linear-gradient(135deg, ${BRAND_ORANGE}, #b86200)`
+                    : `linear-gradient(135deg, ${BRAND_BLUE}cc, ${BRAND_BLUE}66)`,
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  color: isHovered ? '#030303' : BRAND_ORANGE,
                 }}
               >
-                <Icon size={20} strokeWidth={2} />
+                <Icon size={20} strokeWidth={2.2} />
               </div>
             </div>
 
-            {/* Number Badge */}
-            <div className="absolute top-3 right-3">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-300 px-2.5 py-1 rounded-md border border-white/15 bg-black/60 backdrop-blur-md">
+            {/* Number & Status Badge */}
+            <div className="absolute top-3 right-3 flex items-center gap-1.5">
+              <span
+                className={`text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-md border backdrop-blur-md transition-all duration-300 ${
+                  isHovered
+                    ? 'text-amber-300 border-amber-500/50 bg-black/80 shadow-[0_0_12px_rgba(245,148,30,0.3)]'
+                    : 'text-neutral-300 border-white/15 bg-black/60'
+                }`}
+              >
                 0{index + 1}
+              </span>
+            </div>
+
+            {/* Hover Telemetry Overlay Pill on Image */}
+            <div
+              className={`absolute bottom-3 left-3 right-3 flex items-center justify-between px-3 py-1.5 rounded-lg bg-black/75 backdrop-blur-md border border-white/10 transition-all duration-300 ${
+                isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+                <span className="text-[10px] font-mono tracking-widest text-amber-400 uppercase font-semibold">
+                  Live Lane Telemetry
+                </span>
+              </div>
+              <span className="text-[10px] font-mono text-neutral-400">
+                Active Protocol
               </span>
             </div>
           </div>
         )}
 
-        {/* Fallback: Icon Header if no image */}
-        {!service.image && (
-          <div className="flex items-center justify-between mb-6">
-            <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110"
-              style={{
-                background: `linear-gradient(135deg, ${BRAND_BLUE}40, ${BRAND_BLUE}15)`,
-                border: `1px solid ${BRAND_BLUE}60`,
-                color: BRAND_ORANGE,
-              }}
-            >
-              <Icon size={26} strokeWidth={1.75} />
-            </div>
-            <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-500 px-3 py-1 rounded-full border border-neutral-800 bg-neutral-900/60">
-              0{index + 1}
-            </span>
-          </div>
-        )}
-
         {/* Title */}
-        <h3 className="text-xl font-display font-semibold text-white mb-3 transition-colors duration-300 group-hover:text-amber-400">
+        <h3
+          className={`text-xl font-display font-semibold mb-3 transition-colors duration-300 ${
+            isHovered ? 'text-amber-400' : 'text-white'
+          }`}
+        >
           {service.title}
         </h3>
 
-        {/* Description (Rendered verbatim from services.js) */}
+        {/* Description (Verbatim approved text) */}
         <p className="text-neutral-400 text-sm leading-relaxed mb-6 font-body">
           {service.description}
         </p>
 
-        {/* Capability Highlights */}
-        {!isPreview && capabilities.length > 0 && (
-          <div className="mb-6 pt-4 border-t border-white/5">
-            <div className="text-[11px] uppercase tracking-wider font-mono text-neutral-500 mb-3">
-              Operational Scope
+        {/* ── ON-HOVER OPERATIONAL SPECS HUD ── */}
+        <div className="mb-6 pt-4 border-t border-white/10">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <div className={`w-2 h-2 rounded-full transition-colors duration-300 ${isHovered ? 'bg-amber-400 shadow-[0_0_8px_#F5941E]' : 'bg-neutral-600'}`} />
+              <span className="text-[11px] uppercase tracking-wider font-mono text-neutral-400 font-semibold">
+                Operational Specs
+              </span>
             </div>
-            <ul className="space-y-2">
-              {capabilities.map((cap, i) => (
-                <li key={i} className="flex items-center gap-2 text-xs text-neutral-300">
-                  <CheckCircle2 size={13} className="text-amber-500 shrink-0" />
-                  <span>{cap}</span>
-                </li>
-              ))}
-            </ul>
+            <span className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded border transition-all duration-300 ${
+              isHovered
+                ? 'text-amber-400 border-amber-500/40 bg-amber-500/10'
+                : 'text-neutral-500 border-white/5 bg-white/[0.02]'
+            }`}>
+              {isHovered ? 'Live Active' : 'Hover for Specs'}
+            </span>
           </div>
-        )}
+
+          {/* 2x2 High-Tech Specifications Tiles Matrix */}
+          <div className="grid grid-cols-2 gap-2.5">
+            {specs.map((spec, i) => (
+              <div
+                key={i}
+                className={`p-2.5 rounded-xl border transition-all duration-300 flex flex-col justify-center ${
+                  isHovered
+                    ? 'border-amber-500/40 bg-amber-500/[0.06] shadow-[0_2px_12px_rgba(245,148,30,0.08)] -translate-y-0.5'
+                    : 'border-white/5 bg-black/40'
+                }`}
+                style={{ transitionDelay: `${i * 35}ms` }}
+              >
+                <div className="flex items-center gap-1.5 mb-1">
+                  <span className={`w-1 h-1 rounded-full ${isHovered ? 'bg-amber-400' : 'bg-neutral-600'}`} />
+                  <span className="text-[9px] uppercase tracking-wider font-mono text-neutral-400 font-medium truncate">
+                    {spec.label}
+                  </span>
+                </div>
+                <div className={`text-xs font-mono font-semibold tracking-tight truncate transition-colors duration-300 ${
+                  isHovered ? 'text-white' : 'text-neutral-300'
+                }`}>
+                  {spec.value}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Expandable Capability Checklist with Toggle */}
+          <div className="mt-3">
+            <button
+              type="button"
+              onClick={() => setShowFullScope(!showFullScope)}
+              className="w-full flex items-center justify-between py-1.5 px-2 text-[10px] font-mono uppercase tracking-wider text-neutral-400 hover:text-amber-400 transition-colors group/btn"
+            >
+              <span className="flex items-center gap-1.5">
+                <span className="text-amber-500 font-bold">{showFullScope ? '−' : '+'}</span>
+                <span>{showFullScope ? 'Hide Scope Verification' : 'Verified Scope Checklist'}</span>
+              </span>
+              <span className="text-[9px] text-neutral-600 group-hover/btn:text-neutral-400">
+                {capabilities.length} Points
+              </span>
+            </button>
+
+            {/* Smooth Scope Expand */}
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                showFullScope || isHovered ? 'max-h-52 opacity-100 mt-2' : 'max-h-0 opacity-0'
+              }`}
+            >
+              <ul className="space-y-1.5 p-2 rounded-xl bg-black/40 border border-white/5">
+                {capabilities.map((cap, i) => (
+                  <li
+                    key={i}
+                    className="flex items-center gap-2 text-xs text-neutral-300 transition-transform duration-200 hover:translate-x-1"
+                  >
+                    <CheckCircle2 size={12} className="text-amber-400 shrink-0" />
+                    <span className="text-[11px] font-body text-neutral-300">{cap}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Card Footer */}
-      <div className="pt-4 border-t border-white/5 flex items-center justify-between mt-auto">
+      {/* Card Footer CTA */}
+      <div className="pt-4 border-t border-white/10 flex items-center justify-between mt-auto">
         <Link
           to={`/contact?service=${service.id}`}
-          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider font-mono transition-colors duration-300 text-amber-500 hover:text-white"
+          className={`inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider font-mono transition-all duration-300 ${
+            isHovered ? 'text-amber-400 translate-x-1' : 'text-amber-500'
+          }`}
         >
           <span>Request Quote</span>
-          <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
+          <ArrowRight
+            size={14}
+            className={`transition-transform duration-300 ${isHovered ? 'translate-x-1.5' : ''}`}
+          />
         </Link>
-        <span className="text-[11px] text-neutral-600 font-mono">Verified Lane</span>
+        <span className="flex items-center gap-1.5 text-[10px] font-mono text-neutral-500">
+          <span className={`w-1.5 h-1.5 rounded-full ${isHovered ? 'bg-emerald-400 animate-pulse' : 'bg-neutral-600'}`} />
+          Verified Lane
+        </span>
       </div>
     </motion.div>
   );
