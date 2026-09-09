@@ -1,11 +1,13 @@
-import { forwardRef } from 'react';
 import { motion } from 'motion/react';
 import useMagneticMouse from '../hooks/useMagneticMouse';
 
-const MagneticButton = forwardRef(function MagneticButton(
-  { children, className = '', strength = 0.25, onClick, ...props },
-  _
-) {
+export default function MagneticButton({
+  children,
+  className = '',
+  strength = 0.25,
+  onClick,
+  ...props
+}) {
   const magneticRef = useMagneticMouse(strength);
 
   return (
@@ -20,6 +22,4 @@ const MagneticButton = forwardRef(function MagneticButton(
       </div>
     </motion.div>
   );
-});
-
-export default MagneticButton;
+}

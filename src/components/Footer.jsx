@@ -7,7 +7,7 @@ const BRAND_ORANGE = '#F5941E';
 export default function Footer() {
   return (
     <footer
-      className="relative pt-20 pb-12 px-6 md:px-12 overflow-hidden"
+      className="relative overflow-hidden px-6 pb-12 pt-20 md:px-12"
       style={{
         background: '#020202',
         borderTop: `1px solid ${BRAND_ORANGE}15`,
@@ -15,21 +15,22 @@ export default function Footer() {
     >
       {/* Background ambient lighting */}
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 pointer-events-none blur-3xl opacity-20"
+        className="pointer-events-none absolute left-1/2 top-0 h-32 w-3/4 -translate-x-1/2 opacity-20 blur-3xl"
         style={{
           background: `radial-gradient(ellipse at top, ${BRAND_BLUE}, transparent 70%)`,
         }}
       />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12 pb-16 border-b border-white/5">
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-10 border-b border-white/5 pb-16 md:grid-cols-2 lg:grid-cols-5 lg:gap-12">
           {/* Column 1: Brand & Tagline */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-5">
+            <div className="mb-5 flex items-center gap-3">
               <div
-                className="h-11 px-2.5 rounded-xl flex items-center justify-center"
+                className="flex h-11 items-center justify-center rounded-xl px-2.5"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(26, 53, 128, 0.3), rgba(245, 148, 30, 0.05))',
+                  background:
+                    'linear-gradient(135deg, rgba(26, 53, 128, 0.3), rgba(245, 148, 30, 0.05))',
                   border: '1px solid rgba(245, 148, 30, 0.2)',
                   boxShadow: '0 0 20px rgba(26, 53, 128, 0.25)',
                 }}
@@ -41,21 +42,22 @@ export default function Footer() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-display font-semibold text-white text-base tracking-wide">
+                <span className="font-display text-base font-semibold tracking-wide text-white">
                   Connect Continents
                 </span>
-                <span className="text-[10px] font-mono text-neutral-400 tracking-widest uppercase -mt-0.5">
+                <span className="-mt-0.5 font-mono text-[10px] uppercase tracking-widest text-neutral-400">
                   Logistics
                 </span>
               </div>
             </div>
 
-            <p className="text-neutral-400 text-sm leading-relaxed max-w-sm mb-6 font-body">
-              Connecting Continents, Delivering Trust. End-to-end ocean, air, customs,
-              and inland freight forwarder engineered for speed and total transparency.
+            <p className="mb-6 max-w-sm font-body text-sm leading-relaxed text-neutral-400">
+              Connecting Continents, Delivering Trust. End-to-end ocean, air,
+              customs, and inland freight forwarder engineered for speed and
+              total transparency.
             </p>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/5 text-[11px] font-mono text-neutral-400">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/5 bg-white/[0.03] px-3 py-1 font-mono text-[11px] text-neutral-400">
               <ShieldCheck size={13} className="text-amber-500" />
               <span>Registered Global Freight Forwarder</span>
             </div>
@@ -63,7 +65,7 @@ export default function Footer() {
 
           {/* Column 2: Navigation */}
           <div>
-            <h4 className="text-xs uppercase tracking-widest font-mono text-neutral-400 font-semibold mb-4">
+            <h4 className="mb-4 font-mono text-xs font-semibold uppercase tracking-widest text-neutral-400">
               Navigation
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -77,7 +79,7 @@ export default function Footer() {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-neutral-400 hover:text-white transition-colors duration-200"
+                    className="text-neutral-400 transition-colors duration-200 hover:text-white"
                   >
                     {link.name}
                   </Link>
@@ -88,7 +90,7 @@ export default function Footer() {
 
           {/* Column 3: Freight Modes */}
           <div>
-            <h4 className="text-xs uppercase tracking-widest font-mono text-neutral-400 font-semibold mb-4">
+            <h4 className="mb-4 font-mono text-xs font-semibold uppercase tracking-widest text-neutral-400">
               Core Solutions
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -103,7 +105,7 @@ export default function Footer() {
                 <li key={s.id}>
                   <Link
                     to={`/services`}
-                    className="text-neutral-400 hover:text-amber-400 transition-colors duration-200 flex items-center justify-between group"
+                    className="group flex items-center justify-between text-neutral-400 transition-colors duration-200 hover:text-amber-400"
                   >
                     <span>{s.name}</span>
                   </Link>
@@ -114,15 +116,16 @@ export default function Footer() {
 
           {/* Column 4: Operational Readiness */}
           <div>
-            <h4 className="text-xs uppercase tracking-widest font-mono text-neutral-400 font-semibold mb-4">
+            <h4 className="mb-4 font-mono text-xs font-semibold uppercase tracking-widest text-neutral-400">
               Inquiries
             </h4>
-            <p className="text-neutral-400 text-xs leading-relaxed mb-4">
-              Direct all quotation inquiries and booking requests to our operations desk.
+            <p className="mb-4 text-xs leading-relaxed text-neutral-400">
+              Direct all quotation inquiries and booking requests to our
+              operations desk.
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-white/5 hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/30 transition-all duration-300 font-mono"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 font-mono text-xs font-semibold text-white transition-all duration-300 hover:border-amber-500/30 hover:bg-amber-500/10"
             >
               <span>Dispatch Desk</span>
               <ArrowUpRight size={13} />
@@ -131,10 +134,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500 font-body">
-          <p>© {new Date().getFullYear()} Connect Continents Logistics. All rights reserved.</p>
+        <div className="flex flex-col items-center justify-between gap-4 pt-8 font-body text-xs text-neutral-500 sm:flex-row">
+          <p>
+            © {new Date().getFullYear()} Connect Continents Logistics. All
+            rights reserved.
+          </p>
           <div className="flex items-center gap-6">
-            <span className="text-neutral-600">Confidentiality & Compliance Guaranteed</span>
+            <span className="text-neutral-600">
+              Confidentiality & Compliance Guaranteed
+            </span>
           </div>
         </div>
       </div>

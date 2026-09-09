@@ -25,7 +25,12 @@
  */
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform } from 'motion/react';
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useTransform,
+} from 'motion/react';
 import {
   Send,
   User,
@@ -121,7 +126,8 @@ const validators = {
     return null;
   },
   message: (v) => {
-    if (!v || v.trim().length < 10) return 'Message must be at least 10 characters';
+    if (!v || v.trim().length < 10)
+      return 'Message must be at least 10 characters';
     return null;
   },
 };
@@ -173,7 +179,9 @@ function FluidInput({
     <motion.div
       key={`shake-${name}-${shakeKey}`}
       className="relative w-full"
-      animate={error && shakeKey > 0 ? { x: [0, -8, 8, -6, 6, -3, 3, 0] } : { x: 0 }}
+      animate={
+        error && shakeKey > 0 ? { x: [0, -8, 8, -6, 6, -3, 3, 0] } : { x: 0 }
+      }
       transition={{ duration: 0.5, ease: 'easeInOut' }}
     >
       {/* Container */}
@@ -185,21 +193,21 @@ function FluidInput({
             error
               ? '#FF4060'
               : focused
-              ? `${ACCENT}60`
-              : hasValue
-              ? `${ACCENT}20`
-              : '#1a1a1a'
+                ? `${ACCENT}60`
+                : hasValue
+                  ? `${ACCENT}20`
+                  : '#1a1a1a'
           }`,
           boxShadow: focused
             ? `0 0 30px ${ACCENT}12, 0 0 60px ${ACCENT}06, inset 0 0 30px ${ACCENT}03`
             : error
-            ? '0 0 20px #FF406015'
-            : 'none',
+              ? '0 0 20px #FF406015'
+              : 'none',
         }}
       >
         {/* Icon */}
         {Icon && (
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10">
+          <div className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2">
             <Icon
               size={16}
               strokeWidth={1.5}
@@ -214,7 +222,7 @@ function FluidInput({
         {/* Floating label */}
         <motion.label
           htmlFor={name}
-          className="absolute pointer-events-none font-medium z-10"
+          className="pointer-events-none absolute z-10 font-medium"
           animate={{
             top: isFloating ? '8px' : '50%',
             y: isFloating ? 0 : '-50%',
@@ -235,7 +243,9 @@ function FluidInput({
         >
           {label}
           {required && (
-            <span style={{ color: error ? '#FF4060' : ACCENT, marginLeft: 2 }}>*</span>
+            <span style={{ color: error ? '#FF4060' : ACCENT, marginLeft: 2 }}>
+              *
+            </span>
           )}
         </motion.label>
 
@@ -249,7 +259,7 @@ function FluidInput({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           placeholder={focused ? placeholder : ''}
-          className="w-full bg-transparent text-white text-[15px] font-body outline-none"
+          className="w-full bg-transparent font-body text-[15px] text-white outline-none"
           style={{
             padding: Icon ? '24px 44px 10px 44px' : '24px 44px 10px 18px',
             height: '62px',
@@ -265,7 +275,7 @@ function FluidInput({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0, opacity: 0 }}
               transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-emerald-400"
+              className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-emerald-400"
             >
               <CheckCircle2 size={16} strokeWidth={2.5} />
             </motion.div>
@@ -280,7 +290,7 @@ function FluidInput({
             initial={{ opacity: 0, y: -5, height: 0 }}
             animate={{ opacity: 1, y: 0, height: 'auto' }}
             exit={{ opacity: 0, y: -5, height: 0 }}
-            className="text-[12px] mt-1.5 ml-1 font-medium"
+            className="ml-1 mt-1.5 text-[12px] font-medium"
             style={{ color: '#FF4060' }}
           >
             {error}
@@ -295,7 +305,14 @@ function FluidInput({
    FLUID TEXTAREA
    ═══════════════════════════════════════════════════════════════ */
 
-function FluidTextarea({ label, name, value, onChange, error, required = false }) {
+function FluidTextarea({
+  label,
+  name,
+  value,
+  onChange,
+  error,
+  required = false,
+}) {
   const [focused, setFocused] = useState(false);
   const hasValue = value && value.length > 0;
   const isFloating = focused || hasValue;
@@ -311,7 +328,9 @@ function FluidTextarea({ label, name, value, onChange, error, required = false }
     <motion.div
       key={`shake-ta-${shakeKey}`}
       className="relative w-full"
-      animate={error && shakeKey > 0 ? { x: [0, -8, 8, -6, 6, -3, 3, 0] } : { x: 0 }}
+      animate={
+        error && shakeKey > 0 ? { x: [0, -8, 8, -6, 6, -3, 3, 0] } : { x: 0 }
+      }
       transition={{ duration: 0.5, ease: 'easeInOut' }}
     >
       <div
@@ -319,25 +338,36 @@ function FluidTextarea({ label, name, value, onChange, error, required = false }
         style={{
           background: focused ? '#0a0a0a' : '#080808',
           border: `1.5px solid ${
-            error ? '#FF4060' : focused ? `${ACCENT}60` : hasValue ? `${ACCENT}20` : '#1a1a1a'
+            error
+              ? '#FF4060'
+              : focused
+                ? `${ACCENT}60`
+                : hasValue
+                  ? `${ACCENT}20`
+                  : '#1a1a1a'
           }`,
           boxShadow: focused
             ? `0 0 30px ${ACCENT}12, 0 0 60px ${ACCENT}06, inset 0 0 30px ${ACCENT}03`
             : error
-            ? '0 0 20px #FF406015'
-            : 'none',
+              ? '0 0 20px #FF406015'
+              : 'none',
         }}
       >
         <motion.label
           htmlFor={name}
-          className="absolute pointer-events-none font-medium left-[18px] z-10"
+          className="pointer-events-none absolute left-[18px] z-10 font-medium"
           animate={{
             top: isFloating ? '12px' : '20px',
             fontSize: isFloating ? '10px' : '14px',
             letterSpacing: isFloating ? '0.1em' : '0.02em',
             color: error ? '#FF4060' : focused ? ACCENT : '#666',
           }}
-          transition={{ type: 'spring', stiffness: 400, damping: 25, mass: 0.8 }}
+          transition={{
+            type: 'spring',
+            stiffness: 400,
+            damping: 25,
+            mass: 0.8,
+          }}
           style={{ textTransform: isFloating ? 'uppercase' : 'none' }}
         >
           {label}
@@ -352,7 +382,7 @@ function FluidTextarea({ label, name, value, onChange, error, required = false }
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           rows={5}
-          className="w-full bg-transparent text-white text-[15px] font-body outline-none resize-none"
+          className="w-full resize-none bg-transparent font-body text-[15px] text-white outline-none"
           style={{ padding: '30px 18px 12px 18px' }}
         />
 
@@ -368,7 +398,7 @@ function FluidTextarea({ label, name, value, onChange, error, required = false }
             </motion.div>
           )}
           <span
-            className="text-[11px] font-mono"
+            className="font-mono text-[11px]"
             style={{ color: charCount > 500 ? '#FF4060' : '#555' }}
           >
             {charCount}/500
@@ -382,7 +412,7 @@ function FluidTextarea({ label, name, value, onChange, error, required = false }
             initial={{ opacity: 0, y: -5, height: 0 }}
             animate={{ opacity: 1, y: 0, height: 'auto' }}
             exit={{ opacity: 0, y: -5, height: 0 }}
-            className="text-[12px] mt-1.5 ml-1 font-medium"
+            className="ml-1 mt-1.5 text-[12px] font-medium"
             style={{ color: '#FF4060' }}
           >
             {error}
@@ -397,7 +427,16 @@ function FluidTextarea({ label, name, value, onChange, error, required = false }
    FLUID SELECT
    ═══════════════════════════════════════════════════════════════ */
 
-function FluidSelect({ label, name, value, onChange, options, error, icon: Icon, required }) {
+function FluidSelect({
+  label,
+  name,
+  value,
+  onChange,
+  options,
+  error,
+  icon: Icon,
+  required,
+}) {
   const [focused, setFocused] = useState(false);
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
@@ -422,16 +461,24 @@ function FluidSelect({ label, name, value, onChange, options, error, icon: Icon,
       key={`shake-sel-${name}-${shakeKey}`}
       ref={ref}
       className="relative w-full"
-      animate={error && shakeKey > 0 ? { x: [0, -8, 8, -6, 6, -3, 3, 0] } : { x: 0 }}
+      animate={
+        error && shakeKey > 0 ? { x: [0, -8, 8, -6, 6, -3, 3, 0] } : { x: 0 }
+      }
       transition={{ duration: 0.5, ease: 'easeInOut' }}
     >
       <div
-        className="relative rounded-2xl cursor-pointer transition-all duration-500"
+        className="relative cursor-pointer rounded-2xl transition-all duration-500"
         onClick={() => setOpen(!open)}
         style={{
           background: open ? '#0a0a0a' : '#080808',
           border: `1.5px solid ${
-            error ? '#FF4060' : open ? `${ACCENT}60` : value ? `${ACCENT}20` : '#1a1a1a'
+            error
+              ? '#FF4060'
+              : open
+                ? `${ACCENT}60`
+                : value
+                  ? `${ACCENT}20`
+                  : '#1a1a1a'
           }`,
           boxShadow: open
             ? `0 0 30px ${ACCENT}12, 0 0 60px ${ACCENT}06`
@@ -441,17 +488,20 @@ function FluidSelect({ label, name, value, onChange, options, error, icon: Icon,
         }}
       >
         {Icon && (
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+          <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2">
             <Icon
               size={16}
               strokeWidth={1.5}
-              style={{ color: open ? ACCENT : error ? '#FF4060' : '#555', transition: 'color 0.3s' }}
+              style={{
+                color: open ? ACCENT : error ? '#FF4060' : '#555',
+                transition: 'color 0.3s',
+              }}
             />
           </div>
         )}
 
         <motion.span
-          className="absolute pointer-events-none font-medium"
+          className="pointer-events-none absolute font-medium"
           animate={{
             top: value ? '8px' : '50%',
             y: value ? 0 : '-50%',
@@ -459,7 +509,12 @@ function FluidSelect({ label, name, value, onChange, options, error, icon: Icon,
             letterSpacing: value ? '0.1em' : '0.02em',
             color: error ? '#FF4060' : open ? ACCENT : '#666',
           }}
-          transition={{ type: 'spring', stiffness: 400, damping: 25, mass: 0.8 }}
+          transition={{
+            type: 'spring',
+            stiffness: 400,
+            damping: 25,
+            mass: 0.8,
+          }}
           style={{
             left: Icon ? '44px' : '18px',
             textTransform: value ? 'uppercase' : 'none',
@@ -470,7 +525,7 @@ function FluidSelect({ label, name, value, onChange, options, error, icon: Icon,
         </motion.span>
 
         {selectedOption && (
-          <span className="text-white text-[15px] font-body absolute bottom-[12px]">
+          <span className="absolute bottom-[12px] font-body text-[15px] text-white">
             {selectedOption.label}
           </span>
         )}
@@ -480,7 +535,9 @@ function FluidSelect({ label, name, value, onChange, options, error, icon: Icon,
           className="absolute right-4 top-1/2 -translate-y-1/2 transition-transform duration-300"
           style={{
             color: open ? ACCENT : '#555',
-            transform: open ? 'translateY(-50%) rotate(180deg)' : 'translateY(-50%)',
+            transform: open
+              ? 'translateY(-50%) rotate(180deg)'
+              : 'translateY(-50%)',
           }}
         />
       </div>
@@ -493,7 +550,7 @@ function FluidSelect({ label, name, value, onChange, options, error, icon: Icon,
             animate={{ opacity: 1, y: 4, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.97 }}
             transition={{ duration: 0.25, ease: [0.19, 1, 0.22, 1] }}
-            className="absolute z-50 w-full rounded-2xl overflow-hidden"
+            className="absolute z-50 w-full overflow-hidden rounded-2xl"
             style={{
               background: '#0d0d0d',
               border: `1.5px solid ${ACCENT}20`,
@@ -505,7 +562,7 @@ function FluidSelect({ label, name, value, onChange, options, error, icon: Icon,
               return (
                 <motion.div
                   key={opt.value}
-                  className="flex items-center gap-3 px-5 py-3.5 cursor-pointer transition-all duration-200"
+                  className="flex cursor-pointer items-center gap-3 px-5 py-3.5 transition-all duration-200"
                   onClick={() => {
                     onChange({ target: { name, value: opt.value } });
                     setOpen(false);
@@ -514,7 +571,8 @@ function FluidSelect({ label, name, value, onChange, options, error, icon: Icon,
                     backgroundColor: `${ACCENT}08`,
                   }}
                   style={{
-                    background: value === opt.value ? `${ACCENT}10` : 'transparent',
+                    background:
+                      value === opt.value ? `${ACCENT}10` : 'transparent',
                   }}
                 >
                   {OptIcon && (
@@ -554,7 +612,7 @@ function FluidSelect({ label, name, value, onChange, options, error, icon: Icon,
             initial={{ opacity: 0, y: -5, height: 0 }}
             animate={{ opacity: 1, y: 0, height: 'auto' }}
             exit={{ opacity: 0, y: -5, height: 0 }}
-            className="text-[12px] mt-1.5 ml-1 font-medium"
+            className="ml-1 mt-1.5 text-[12px] font-medium"
             style={{ color: '#FF4060' }}
           >
             {error}
@@ -571,14 +629,17 @@ function FluidSelect({ label, name, value, onChange, options, error, icon: Icon,
 
 function StepIndicator({ currentStep, totalSteps }) {
   return (
-    <div className="flex items-center gap-2 w-full mb-10">
+    <div className="mb-10 flex w-full items-center gap-2">
       {STEPS.map((step, i) => {
         const StepIcon = step.icon;
         const isActive = i === currentStep;
         const isCompleted = i < currentStep;
 
         return (
-          <div key={step.id} className="flex items-center flex-1 last:flex-none">
+          <div
+            key={step.id}
+            className="flex flex-1 items-center last:flex-none"
+          >
             {/* Step circle */}
             <motion.div
               className="relative flex items-center justify-center rounded-xl"
@@ -588,10 +649,14 @@ function StepIndicator({ currentStep, totalSteps }) {
                 background: isCompleted
                   ? `${ACCENT}15`
                   : isActive
-                  ? `${ACCENT}10`
-                  : '#0a0a0a',
+                    ? `${ACCENT}10`
+                    : '#0a0a0a',
                 border: `1.5px solid ${
-                  isCompleted ? `${ACCENT}50` : isActive ? `${ACCENT}40` : '#1a1a1a'
+                  isCompleted
+                    ? `${ACCENT}50`
+                    : isActive
+                      ? `${ACCENT}40`
+                      : '#1a1a1a'
                 }`,
                 boxShadow: isActive ? `0 0 25px ${ACCENT}15` : 'none',
                 flexShrink: 0,
@@ -622,8 +687,14 @@ function StepIndicator({ currentStep, totalSteps }) {
             {/* Label */}
             <div className="ml-2.5 hidden sm:block" style={{ flexShrink: 0 }}>
               <p
-                className="text-[10px] uppercase tracking-[0.15em] font-mono font-medium"
-                style={{ color: isActive ? ACCENT : isCompleted ? `${ACCENT}80` : '#555' }}
+                className="font-mono text-[10px] font-medium uppercase tracking-[0.15em]"
+                style={{
+                  color: isActive
+                    ? ACCENT
+                    : isCompleted
+                      ? `${ACCENT}80`
+                      : '#555',
+                }}
               >
                 Step {i + 1}
               </p>
@@ -637,7 +708,10 @@ function StepIndicator({ currentStep, totalSteps }) {
 
             {/* Connector line */}
             {i < STEPS.length - 1 && (
-              <div className="flex-1 mx-3 h-[1.5px] rounded-full overflow-hidden" style={{ background: '#1a1a1a' }}>
+              <div
+                className="mx-3 h-[1.5px] flex-1 overflow-hidden rounded-full"
+                style={{ background: '#1a1a1a' }}
+              >
                 <motion.div
                   className="h-full rounded-full"
                   style={{ background: ACCENT }}
@@ -689,7 +763,7 @@ function StepYourDetails({ data, errors, onChange }) {
         placeholder="e.g. Khan Industries"
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <FluidInput
           label="Email Address"
           name="email"
@@ -722,7 +796,10 @@ function StepYourDetails({ data, errors, onChange }) {
 
 function StepShipmentInfo({ data, errors, onChange }) {
   const cargoOptions = CARGO_TYPES.map((c) => ({
-    value: c.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+    value: c
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, ''),
     label: c,
     icon: Package,
   }));
@@ -737,7 +814,7 @@ function StepShipmentInfo({ data, errors, onChange }) {
       className="space-y-5"
     >
       {/* Route */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <FluidInput
           label="Origin Port / City"
           name="origin"
@@ -831,7 +908,7 @@ function StepMessage({ data, errors, onChange }) {
         }}
       >
         <p
-          className="text-[10px] uppercase tracking-[0.15em] font-mono font-semibold mb-3"
+          className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[0.15em]"
           style={{ color: ACCENT }}
         >
           Submission Preview
@@ -840,14 +917,25 @@ function StepMessage({ data, errors, onChange }) {
           {[
             { label: 'Name', value: data.fullName },
             { label: 'Email', value: data.email },
-            { label: 'Route', value: data.origin && data.destination ? `${data.origin} → ${data.destination}` : '—' },
-            { label: 'Service', value: SERVICE_OPTIONS.find((s) => s.value === data.service)?.label || '—' },
+            {
+              label: 'Route',
+              value:
+                data.origin && data.destination
+                  ? `${data.origin} → ${data.destination}`
+                  : '—',
+            },
+            {
+              label: 'Service',
+              value:
+                SERVICE_OPTIONS.find((s) => s.value === data.service)?.label ||
+                '—',
+            },
           ].map((item) => (
             <div key={item.label}>
-              <p className="text-[10px] uppercase tracking-[0.1em] text-neutral-600 font-mono">
+              <p className="font-mono text-[10px] uppercase tracking-[0.1em] text-neutral-600">
                 {item.label}
               </p>
-              <p className="text-[13px] text-neutral-300 font-medium truncate">
+              <p className="truncate text-[13px] font-medium text-neutral-300">
                 {item.value || '—'}
               </p>
             </div>
@@ -866,7 +954,7 @@ function SuccessPanel({ data, onReset }) {
   return (
     <motion.div
       key="success-panel"
-      className="flex flex-col items-center justify-center text-center py-10 relative"
+      className="relative flex flex-col items-center justify-center py-10 text-center"
       initial={{ opacity: 0, scale: 0.85, rotateY: 90, filter: 'blur(20px)' }}
       animate={{ opacity: 1, scale: 1, rotateY: 0, filter: 'blur(0px)' }}
       exit={{ opacity: 0, scale: 0.85, rotateY: -90, filter: 'blur(20px)' }}
@@ -921,9 +1009,18 @@ function SuccessPanel({ data, onReset }) {
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
-            transition={{ delay: 0.4, duration: 0.8, type: 'spring', stiffness: 200 }}
+            transition={{
+              delay: 0.4,
+              duration: 0.8,
+              type: 'spring',
+              stiffness: 200,
+            }}
           >
-            <CheckCircle2 size={48} strokeWidth={1.5} style={{ color: ACCENT }} />
+            <CheckCircle2
+              size={48}
+              strokeWidth={1.5}
+              style={{ color: ACCENT }}
+            />
           </motion.div>
         </motion.div>
       </div>
@@ -934,24 +1031,26 @@ function SuccessPanel({ data, onReset }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.6 }}
       >
-        <h3 className="text-3xl font-display font-bold text-white mb-3">
+        <h3 className="mb-3 font-display text-3xl font-bold text-white">
           Message Received
         </h3>
-        <p className="text-neutral-400 max-w-sm mx-auto text-[15px] leading-relaxed mb-2">
+        <p className="mx-auto mb-2 max-w-sm text-[15px] leading-relaxed text-neutral-400">
           Your shipment inquiry from{' '}
-          <span style={{ color: ACCENT }}>{data.origin || 'Origin'}</span>{' '}
-          to{' '}
-          <span style={{ color: ACCENT }}>{data.destination || 'Destination'}</span>{' '}
+          <span style={{ color: ACCENT }}>{data.origin || 'Origin'}</span> to{' '}
+          <span style={{ color: ACCENT }}>
+            {data.destination || 'Destination'}
+          </span>{' '}
           has been logged.
         </p>
-        <p className="text-neutral-500 text-[13px]">
-          Our team will respond within <span className="text-white font-semibold">2 business hours</span>.
+        <p className="text-[13px] text-neutral-500">
+          Our team will respond within{' '}
+          <span className="font-semibold text-white">2 business hours</span>.
         </p>
       </motion.div>
 
       {/* Tracking ID */}
       <motion.div
-        className="mt-8 px-6 py-3 rounded-xl"
+        className="mt-8 rounded-xl px-6 py-3"
         style={{
           background: `${ACCENT}06`,
           border: `1px solid ${ACCENT}15`,
@@ -960,34 +1059,40 @@ function SuccessPanel({ data, onReset }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7, duration: 0.5 }}
       >
-        <p className="text-[10px] uppercase tracking-[0.15em] font-mono text-neutral-500 mb-1">
+        <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-500">
           Reference ID
         </p>
-        <p className="font-mono font-semibold text-lg tracking-wider" style={{ color: ACCENT }}>
+        <p
+          className="font-mono text-lg font-semibold tracking-wider"
+          style={{ color: ACCENT }}
+        >
           CCL-{Date.now().toString(36).toUpperCase().slice(-6)}
         </p>
       </motion.div>
 
       {/* Decorative corner brackets */}
-      {['top-0 left-0', 'top-0 right-0 rotate-90', 'bottom-0 left-0 -rotate-90', 'bottom-0 right-0 rotate-180'].map(
-        (pos, i) => (
-          <motion.div
-            key={i}
-            className={`absolute ${pos} w-8 h-8 pointer-events-none`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            transition={{ delay: 0.8 + i * 0.1 }}
-          >
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <path d="M0 12V0H12" stroke={ACCENT} strokeWidth="1" />
-            </svg>
-          </motion.div>
-        )
-      )}
+      {[
+        'top-0 left-0',
+        'top-0 right-0 rotate-90',
+        'bottom-0 left-0 -rotate-90',
+        'bottom-0 right-0 rotate-180',
+      ].map((pos, i) => (
+        <motion.div
+          key={i}
+          className={`absolute ${pos} pointer-events-none h-8 w-8`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.3 }}
+          transition={{ delay: 0.8 + i * 0.1 }}
+        >
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M0 12V0H12" stroke={ACCENT} strokeWidth="1" />
+          </svg>
+        </motion.div>
+      ))}
 
       {/* Reset button */}
       <motion.button
-        className="mt-8 px-6 py-3 rounded-xl font-display font-semibold text-sm"
+        className="mt-8 rounded-xl px-6 py-3 font-display text-sm font-semibold"
         style={{
           background: 'transparent',
           border: `1.5px solid #333`,
@@ -1130,11 +1235,11 @@ export default function FluidContactForm({ initialService = '' }) {
   return (
     <section
       id="contact-form"
-      className="relative bg-obsidian py-24 md:py-32 overflow-hidden"
+      className="relative overflow-hidden bg-obsidian py-24 md:py-32"
       style={{ background: OBSIDIAN }}
     >
       {/* Background decorations */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <div
           className="absolute inset-0"
           style={{
@@ -1142,27 +1247,37 @@ export default function FluidContactForm({ initialService = '' }) {
           }}
         />
         {/* Grid */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.015]">
+        <svg className="absolute inset-0 h-full w-full opacity-[0.015]">
           <defs>
-            <pattern id="contact-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke={ACCENT} strokeWidth="0.5" />
+            <pattern
+              id="contact-grid"
+              width="40"
+              height="40"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 40 0 L 0 0 0 40"
+                fill="none"
+                stroke={ACCENT}
+                strokeWidth="0.5"
+              />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#contact-grid)" />
         </svg>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12">
         {/* Section header */}
         <motion.div
-          className="text-center mb-16"
+          className="mb-16 text-center"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6"
+            className="mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5"
             style={{
               background: `${ACCENT}08`,
               border: `1px solid ${ACCENT}15`,
@@ -1174,19 +1289,18 @@ export default function FluidContactForm({ initialService = '' }) {
           >
             <Sparkles size={12} style={{ color: ACCENT }} />
             <span
-              className="text-[11px] uppercase tracking-[0.2em] font-mono font-medium"
+              className="font-mono text-[11px] font-medium uppercase tracking-[0.2em]"
               style={{ color: ACCENT }}
             >
               Get in Touch
             </span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-6xl font-display font-bold text-white mb-6 leading-[1.1]">
-            Let's Move Your{' '}
-            <span className="text-gradient-ACCENT">Cargo</span>
+          <h2 className="mb-6 font-display text-4xl font-bold leading-[1.1] text-white md:text-6xl">
+            Let's Move Your <span className="text-gradient-ACCENT">Cargo</span>
           </h2>
 
-          <p className="text-neutral-500 max-w-xl mx-auto text-base md:text-lg leading-relaxed">
+          <p className="mx-auto max-w-xl text-base leading-relaxed text-neutral-500 md:text-lg">
             Tell us about your shipment. Our logistics specialists will craft a
             tailored solution and respond within hours.
           </p>
@@ -1194,14 +1308,14 @@ export default function FluidContactForm({ initialService = '' }) {
 
         {/* Form card */}
         <motion.div
-          className="max-w-2xl mx-auto"
+          className="mx-auto max-w-2xl"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ delay: 0.2, duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
         >
           <div
-            className="relative rounded-3xl overflow-hidden"
+            className="relative overflow-hidden rounded-3xl"
             style={{
               background: '#080808',
               border: `1px solid ${ACCENT}10`,
@@ -1211,7 +1325,7 @@ export default function FluidContactForm({ initialService = '' }) {
           >
             {/* Inner glow line at top */}
             <div
-              className="absolute top-0 left-0 right-0 h-[1px]"
+              className="absolute left-0 right-0 top-0 h-[1px]"
               style={{
                 background: `linear-gradient(90deg, transparent, ${ACCENT}30, transparent)`,
               }}
@@ -1262,12 +1376,12 @@ export default function FluidContactForm({ initialService = '' }) {
                     </AnimatePresence>
 
                     {/* Navigation buttons */}
-                    <div className="flex items-center justify-between mt-10">
+                    <div className="mt-10 flex items-center justify-between">
                       {/* Back */}
                       <div>
                         {step > 0 && (
                           <motion.button
-                            className="flex items-center gap-2 px-5 py-3 rounded-xl font-display font-semibold text-sm"
+                            className="flex items-center gap-2 rounded-xl px-5 py-3 font-display text-sm font-semibold"
                             style={{
                               background: 'transparent',
                               border: `1.5px solid #222`,
@@ -1291,7 +1405,7 @@ export default function FluidContactForm({ initialService = '' }) {
 
                       {/* Next / Submit */}
                       <motion.button
-                        className="relative flex items-center gap-2 px-8 py-3.5 rounded-xl font-display font-semibold text-sm overflow-hidden group"
+                        className="group relative flex items-center gap-2 overflow-hidden rounded-xl px-8 py-3.5 font-display text-sm font-semibold"
                         style={{
                           background: `linear-gradient(135deg, ${ACCENT}20, ${ACCENT}08)`,
                           border: `1.5px solid ${ACCENT}40`,
@@ -1331,7 +1445,7 @@ export default function FluidContactForm({ initialService = '' }) {
 
                         {/* Hover fill */}
                         <div
-                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                          className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                           style={{
                             background: `linear-gradient(135deg, ${ACCENT}10, ${ACCENT}05)`,
                           }}

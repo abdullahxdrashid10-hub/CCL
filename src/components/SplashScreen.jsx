@@ -10,7 +10,9 @@ export default function SplashScreen() {
   useEffect(() => {
     try {
       const hasSeenSplash = sessionStorage.getItem('ccl_splash_seen');
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const prefersReduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
 
       if (hasSeenSplash || prefersReduced) {
         return;
@@ -39,11 +41,11 @@ export default function SplashScreen() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: 'easeInOut' }}
-          className="fixed inset-0 z-[9999] bg-[#030303] flex flex-col items-center justify-center pointer-events-none"
+          className="pointer-events-none fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#030303]"
         >
           {/* Background Radial Glow */}
           <div
-            className="absolute inset-0 pointer-events-none opacity-25"
+            className="pointer-events-none absolute inset-0 opacity-25"
             style={{
               background: `radial-gradient(circle at center, ${BRAND_BLUE} 0%, transparent 70%)`,
             }}
@@ -51,8 +53,11 @@ export default function SplashScreen() {
 
           <div className="relative z-10 flex flex-col items-center">
             {/* Animated SVG Route Arc behind Logo */}
-            <div className="relative w-28 h-28 flex items-center justify-center mb-5">
-              <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full">
+            <div className="relative mb-5 flex h-28 w-28 items-center justify-center">
+              <svg
+                viewBox="0 0 100 100"
+                className="absolute inset-0 h-full w-full"
+              >
                 <circle
                   cx="50"
                   cy="50"
@@ -80,25 +85,26 @@ export default function SplashScreen() {
                 initial={{ scale: 0.85, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.4 }}
-                className="w-16 h-16 rounded-2xl flex items-center justify-center p-2"
+                className="flex h-16 w-16 items-center justify-center rounded-2xl p-2"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(26, 53, 128, 0.4), rgba(245, 148, 30, 0.1))',
+                  background:
+                    'linear-gradient(135deg, rgba(26, 53, 128, 0.4), rgba(245, 148, 30, 0.1))',
                   border: '1px solid rgba(245, 148, 30, 0.3)',
                 }}
               >
                 <img
                   src="/ccl-mark.png"
                   alt="Connect Continents Logistics"
-                  className="w-full h-auto object-contain"
+                  className="h-auto w-full object-contain"
                 />
               </motion.div>
             </div>
 
             <div className="text-center">
-              <h2 className="font-display font-bold text-white text-base tracking-wider mb-1">
+              <h2 className="mb-1 font-display text-base font-bold tracking-wider text-white">
                 CONNECT CONTINENTS
               </h2>
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-neutral-500">
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">
                 Logistics Dispatch Hub
               </span>
             </div>

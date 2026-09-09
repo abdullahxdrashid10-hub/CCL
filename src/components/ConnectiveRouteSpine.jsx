@@ -23,10 +23,10 @@ export default function ConnectiveRouteSpine() {
   }, []);
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden hidden md:block">
+    <div className="pointer-events-none absolute inset-0 z-0 hidden overflow-hidden md:block">
       {/* Centered / Left connective SVG thread */}
-      <div className="max-w-7xl mx-auto h-full relative px-6 md:px-12">
-        <div className="absolute left-6 md:left-12 top-0 bottom-0 w-[2px]">
+      <div className="relative mx-auto h-full max-w-7xl px-6 md:px-12">
+        <div className="absolute bottom-0 left-6 top-0 w-[2px] md:left-12">
           {/* Subtle static guideline */}
           <div
             className="absolute inset-0 w-[1px] opacity-15"
@@ -38,7 +38,7 @@ export default function ConnectiveRouteSpine() {
           {/* Dynamic scroll-following glowing active path (GPU accelerated scaleY) */}
           {!prefersReducedMotion && (
             <motion.div
-              className="absolute top-0 left-0 w-[2px] h-full origin-top rounded-full will-change-transform"
+              className="absolute left-0 top-0 h-full w-[2px] origin-top rounded-full will-change-transform"
               style={{
                 scaleY,
                 background: `linear-gradient(180deg, ${BRAND_BLUE} 0%, ${BRAND_ORANGE} 50%, #FFAA40 100%)`,
@@ -51,11 +51,11 @@ export default function ConnectiveRouteSpine() {
           {[12, 28, 48, 72, 92].map((topPercent, index) => (
             <div
               key={index}
-              className="absolute -left-[5px] -translate-y-1/2 flex items-center gap-3"
+              className="absolute -left-[5px] flex -translate-y-1/2 items-center gap-3"
               style={{ top: `${topPercent}%` }}
             >
               <div
-                className="w-3 h-3 rounded-full flex items-center justify-center"
+                className="flex h-3 w-3 items-center justify-center rounded-full"
                 style={{
                   background: '#030303',
                   border: `1.5px solid ${BRAND_ORANGE}`,
@@ -63,12 +63,12 @@ export default function ConnectiveRouteSpine() {
                 }}
               >
                 <div
-                  className="w-1 h-1 rounded-full animate-pulse"
+                  className="h-1 w-1 animate-pulse rounded-full"
                   style={{ background: BRAND_ORANGE }}
                 />
               </div>
 
-              <span className="text-[9px] font-mono text-neutral-600 uppercase tracking-widest opacity-0 hover:opacity-100 transition-opacity">
+              <span className="font-mono text-[9px] uppercase tracking-widest text-neutral-600 opacity-0 transition-opacity hover:opacity-100">
                 WP-0{index + 1}
               </span>
             </div>

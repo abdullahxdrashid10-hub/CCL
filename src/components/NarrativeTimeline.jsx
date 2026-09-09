@@ -180,7 +180,7 @@ function ScrollDrawnLine({ containerRef }) {
 
   return (
     <svg
-      className="absolute left-1/2 top-0 h-full -translate-x-1/2 pointer-events-none"
+      className="pointer-events-none absolute left-1/2 top-0 h-full -translate-x-1/2"
       style={{ width: '120px' }}
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
@@ -217,7 +217,7 @@ function ScrollDrawnLine({ containerRef }) {
 function TeamMemberCard({ member, index, isExpanded, onToggle }) {
   return (
     <div
-      className="relative group cursor-pointer w-full text-left"
+      className="group relative w-full cursor-pointer text-left"
       onClick={onToggle}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -231,9 +231,10 @@ function TeamMemberCard({ member, index, isExpanded, onToggle }) {
       aria-label={`Toggle overview for ${member.name}`}
     >
       <div
-        className="relative flex flex-col p-6 rounded-2xl transition-all duration-200 overflow-hidden"
+        className="relative flex flex-col overflow-hidden rounded-2xl p-6 transition-all duration-200"
         style={{
-          background: 'linear-gradient(180deg, rgba(16, 20, 30, 0.85) 0%, rgba(8, 10, 15, 0.95) 100%)',
+          background:
+            'linear-gradient(180deg, rgba(16, 20, 30, 0.85) 0%, rgba(8, 10, 15, 0.95) 100%)',
           border: `1px solid ${isExpanded ? `${ACCENT_COLOR}60` : 'rgba(255, 255, 255, 0.08)'}`,
           boxShadow: isExpanded
             ? `0 0 30px ${ACCENT_COLOR}18, 0 10px 30px rgba(0,0,0,0.7)`
@@ -241,10 +242,10 @@ function TeamMemberCard({ member, index, isExpanded, onToggle }) {
         }}
       >
         {/* Card Header: Avatar + Identity + Chevron Toggle */}
-        <div className="flex items-center gap-4 w-full">
+        <div className="flex w-full items-center gap-4">
           {/* Avatar */}
           <div
-            className="w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center overflow-hidden transition-all duration-300"
+            className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl transition-all duration-300"
             style={{
               background: member.image
                 ? 'transparent'
@@ -257,19 +258,21 @@ function TeamMemberCard({ member, index, isExpanded, onToggle }) {
               <img
                 src={member.image}
                 alt={member.name}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
               />
             ) : (
-              <span className="font-display font-bold text-base">{member.initials}</span>
+              <span className="font-display text-base font-bold">
+                {member.initials}
+              </span>
             )}
           </div>
 
-          <div className="flex-grow min-w-0">
-            <h4 className="text-white font-display font-semibold text-base tracking-wide group-hover:text-amber-400 transition-colors duration-200">
+          <div className="min-w-0 flex-grow">
+            <h4 className="font-display text-base font-semibold tracking-wide text-white transition-colors duration-200 group-hover:text-amber-400">
               {member.name}
             </h4>
             <p
-              className="text-[11px] uppercase tracking-[0.15em] mt-0.5 font-medium font-mono"
+              className="mt-0.5 font-mono text-[11px] font-medium uppercase tracking-[0.15em]"
               style={{ color: ACCENT_COLOR }}
             >
               {member.role}
@@ -278,10 +281,14 @@ function TeamMemberCard({ member, index, isExpanded, onToggle }) {
 
           {/* Morphing / Rotating Chevron Indicator */}
           <div
-            className="w-8 h-8 shrink-0 rounded-full flex items-center justify-center border transition-all duration-300"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300"
             style={{
-              borderColor: isExpanded ? `${ACCENT_COLOR}60` : 'rgba(255, 255, 255, 0.1)',
-              background: isExpanded ? `${ACCENT_COLOR}18` : 'rgba(255, 255, 255, 0.03)',
+              borderColor: isExpanded
+                ? `${ACCENT_COLOR}60`
+                : 'rgba(255, 255, 255, 0.1)',
+              background: isExpanded
+                ? `${ACCENT_COLOR}18`
+                : 'rgba(255, 255, 255, 0.03)',
               color: isExpanded ? ACCENT_COLOR : '#888',
               transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
             }}
@@ -299,8 +306,8 @@ function TeamMemberCard({ member, index, isExpanded, onToggle }) {
           }}
         >
           <div className="overflow-hidden">
-            <div className="pt-4 mt-4 border-t border-white/10 text-neutral-300 text-xs leading-relaxed font-body">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-amber-500/80 block mb-1.5">
+            <div className="mt-4 border-t border-white/10 pt-4 font-body text-xs leading-relaxed text-neutral-300">
+              <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-widest text-amber-500/80">
                 Leadership Profile
               </span>
               <p>{member.overview}</p>
@@ -344,9 +351,9 @@ function StoryBlock({ block, index }) {
         transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1] }}
       >
         {/* Icon + label */}
-        <div className="flex items-center gap-3 mb-4">
+        <div className="mb-4 flex items-center gap-3">
           <div
-            className="flex items-center justify-center w-10 h-10 rounded-xl"
+            className="flex h-10 w-10 items-center justify-center rounded-xl"
             style={{
               background: `linear-gradient(135deg, ${ACCENT_COLOR}18, transparent)`,
               border: `1px solid ${ACCENT_COLOR}25`,
@@ -357,21 +364,19 @@ function StoryBlock({ block, index }) {
         </div>
 
         {/* Title */}
-        <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-4 leading-tight">
+        <h3 className="mb-4 font-display text-2xl font-bold leading-tight text-white md:text-3xl">
           {block.title}
         </h3>
 
         {/* Description — clearly marked if placeholder */}
         <p
-          className={`leading-relaxed text-[15px] mb-6 ${
+          className={`mb-6 text-[15px] leading-relaxed ${
             block.isPlaceholder
-              ? 'text-neutral-600 italic border-l-2 border-dashed pl-4'
+              ? 'border-l-2 border-dashed pl-4 italic text-neutral-600'
               : 'text-neutral-400'
           }`}
           style={
-            block.isPlaceholder
-              ? { borderColor: `${ACCENT_COLOR}30` }
-              : {}
+            block.isPlaceholder ? { borderColor: `${ACCENT_COLOR}30` } : {}
           }
         >
           {block.description}
@@ -379,7 +384,7 @@ function StoryBlock({ block, index }) {
 
         {/* Team grid — interactive expandable cards */}
         {block.isTeamNode && block.team && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 items-start">
+          <div className="mt-6 grid grid-cols-1 items-start gap-4 md:grid-cols-2">
             {block.team.map((member, i) => (
               <TeamMemberCard
                 key={member.name}
@@ -403,14 +408,14 @@ function StoryBlock({ block, index }) {
 function SectionHeader() {
   return (
     <motion.div
-      className="text-center mb-16 md:mb-24"
+      className="mb-16 text-center md:mb-24"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
     >
       <motion.div
-        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6"
+        className="mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5"
         style={{
           background: `${ACCENT_COLOR}08`,
           border: `1px solid ${ACCENT_COLOR}15`,
@@ -421,22 +426,22 @@ function SectionHeader() {
         transition={{ delay: 0.2, duration: 0.5 }}
       >
         <div
-          className="w-1.5 h-1.5 rounded-full"
+          className="h-1.5 w-1.5 rounded-full"
           style={{ background: ACCENT_COLOR }}
         />
         <span
-          className="text-[11px] uppercase tracking-[0.2em] font-mono font-medium"
+          className="font-mono text-[11px] font-medium uppercase tracking-[0.2em]"
           style={{ color: ACCENT_COLOR }}
         >
           About Us
         </span>
       </motion.div>
 
-      <h2 className="text-4xl md:text-6xl font-display font-bold text-white mb-6 leading-[1.1]">
+      <h2 className="mb-6 font-display text-4xl font-bold leading-[1.1] text-white md:text-6xl">
         Our Story
       </h2>
 
-      <p className="text-neutral-500 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
+      <p className="mx-auto max-w-2xl text-base leading-relaxed text-neutral-500 md:text-lg">
         {/* PLACEHOLDER: Replace with real company description once provided. */}
         The people and purpose behind Connect Continents Logistics.
       </p>
@@ -450,17 +455,30 @@ function SectionHeader() {
 
 function GridBackground() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <div
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+      aria-hidden="true"
+    >
       <div
         className="absolute inset-0"
         style={{
           background: `radial-gradient(ellipse 60% 50% at 50% 0%, ${ACCENT_COLOR}04, transparent 70%)`,
         }}
       />
-      <svg className="absolute inset-0 w-full h-full opacity-[0.02]">
+      <svg className="absolute inset-0 h-full w-full opacity-[0.02]">
         <defs>
-          <pattern id="about-grid" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M 60 0 L 0 0 0 60" fill="none" stroke={ACCENT_COLOR} strokeWidth="0.5" />
+          <pattern
+            id="about-grid"
+            width="60"
+            height="60"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 60 0 L 0 0 0 60"
+              fill="none"
+              stroke={ACCENT_COLOR}
+              strokeWidth="0.5"
+            />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#about-grid)" />
@@ -485,7 +503,9 @@ export default function NarrativeTimeline() {
       clearTimeout(timer);
       // Kill any ScrollTrigger instances created within this section
       ScrollTrigger.getAll()
-        .filter((st) => st.trigger && containerRef.current?.contains(st.trigger))
+        .filter(
+          (st) => st.trigger && containerRef.current?.contains(st.trigger)
+        )
         .forEach((st) => st.kill());
     };
   }, []);
@@ -494,12 +514,12 @@ export default function NarrativeTimeline() {
     <section
       id="about"
       ref={containerRef}
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative overflow-hidden py-24 md:py-32"
       style={{ background: BG_COLOR }}
     >
       <GridBackground />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12">
         <SectionHeader />
 
         <div className="relative">
@@ -513,7 +533,7 @@ export default function NarrativeTimeline() {
 
       {/* Bottom fade */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-32"
         style={{
           background: `linear-gradient(to bottom, transparent, ${BG_COLOR})`,
         }}

@@ -20,7 +20,9 @@ export default function CustomCursor() {
     if (typeof window === 'undefined') return;
 
     const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
 
     if (!hasFinePointer || prefersReducedMotion) {
       setIsEnabled(false);
@@ -85,7 +87,7 @@ export default function CustomCursor() {
     <>
       {/* Outer trailing aura ring */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-[width,height,background-color,border-color,box-shadow] duration-200"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] -translate-x-1/2 -translate-y-1/2 rounded-full transition-[width,height,background-color,border-color,box-shadow] duration-200"
         style={{
           x: springX,
           y: springY,
@@ -99,7 +101,7 @@ export default function CustomCursor() {
 
       {/* Inner precise glowing dot */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           x: mouseX,
           y: mouseY,

@@ -18,7 +18,9 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [hoveredNav, setHoveredNav] = useState(null);
+  const [hoveredNav, setHoveredNav] = useState(
+    /** @type {string | null} */ (null)
+  );
   const location = useLocation();
 
   useEffect(() => {
@@ -41,22 +43,25 @@ export default function Navbar() {
   }, [location.pathname]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <header className="fixed left-0 right-0 top-0 z-50 transition-all duration-300">
       <nav
-        className="mx-auto px-6 md:px-12 py-4 flex items-center justify-between transition-all duration-300"
+        className="mx-auto flex items-center justify-between px-6 py-4 transition-all duration-300 md:px-12"
         style={{
-          background: isScrolled ? 'rgba(3, 3, 3, 0.88)' : 'rgba(3, 3, 3, 0.65)',
+          background: isScrolled
+            ? 'rgba(3, 3, 3, 0.88)'
+            : 'rgba(3, 3, 3, 0.65)',
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
           borderBottom: `1px solid ${isScrolled ? `${BRAND_ORANGE}15` : `${BRAND_ORANGE}0A`}`,
         }}
       >
         {/* Brand Logo & Name */}
-        <Link to="/" className="flex items-center gap-3 group">
+        <Link to="/" className="group flex items-center gap-3">
           <div
-            className="h-10 px-2 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-105"
+            className="flex h-10 items-center justify-center rounded-xl px-2 transition-all duration-300 group-hover:scale-105"
             style={{
-              background: 'linear-gradient(135deg, rgba(26, 53, 128, 0.3), rgba(245, 148, 30, 0.05))',
+              background:
+                'linear-gradient(135deg, rgba(26, 53, 128, 0.3), rgba(245, 148, 30, 0.05))',
               border: '1px solid rgba(245, 148, 30, 0.2)',
               boxShadow: '0 0 20px rgba(26, 53, 128, 0.25)',
             }}
@@ -68,10 +73,10 @@ export default function Navbar() {
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-display font-semibold text-white text-sm tracking-wide group-hover:text-amber-400 transition-colors duration-300">
+            <span className="font-display text-sm font-semibold tracking-wide text-white transition-colors duration-300 group-hover:text-amber-400">
               Connect Continents
             </span>
-            <span className="text-[10px] font-mono text-neutral-400 tracking-widest uppercase -mt-0.5">
+            <span className="-mt-0.5 font-mono text-[10px] uppercase tracking-widest text-neutral-400">
               Logistics
             </span>
           </div>
@@ -79,63 +84,73 @@ export default function Navbar() {
 
         {/* Desktop Navigation Links with Active Pill + Hover Following Indicator */}
         <LayoutGroup>
-        <div
-          className="hidden md:flex items-center gap-1 bg-neutral-950/80 px-3 py-1.5 rounded-full border border-white/5 relative"
-          onMouseLeave={() => setHoveredNav(null)}
-        >
-          {NAV_LINKS.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              onMouseEnter={() => setHoveredNav(item.path)}
-              className={({ isActive }) =>
-                `relative px-4 py-2 text-xs font-medium transition-colors duration-300 rounded-full ${
-                  isActive ? 'text-white font-semibold' : 'text-neutral-400 hover:text-white'
-                }`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  <span className="relative z-10">{item.label}</span>
+          <div
+            className="relative hidden items-center gap-1 rounded-full border border-white/5 bg-neutral-950/80 px-3 py-1.5 md:flex"
+            onMouseLeave={() => setHoveredNav(null)}
+          >
+            {NAV_LINKS.map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                onMouseEnter={() => setHoveredNav(item.path)}
+                className={({ isActive }) =>
+                  `relative rounded-full px-4 py-2 text-xs font-medium transition-colors duration-300 ${
+                    isActive
+                      ? 'font-semibold text-white'
+                      : 'text-neutral-400 hover:text-white'
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <span className="relative z-10">{item.label}</span>
 
-                  {/* Active Page Capsule */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="navbar-active-indicator"
-                      className="absolute inset-0 rounded-full"
-                      style={{
-                        background: `linear-gradient(135deg, ${BRAND_ORANGE}25, ${BRAND_BLUE}30)`,
-                        border: `1px solid ${BRAND_ORANGE}40`,
-                      }}
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
+                    {/* Active Page Capsule */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="navbar-active-indicator"
+                        className="absolute inset-0 rounded-full"
+                        style={{
+                          background: `linear-gradient(135deg, ${BRAND_ORANGE}25, ${BRAND_BLUE}30)`,
+                          border: `1px solid ${BRAND_ORANGE}40`,
+                        }}
+                        transition={{
+                          type: 'spring',
+                          stiffness: 380,
+                          damping: 30,
+                        }}
+                      />
+                    )}
 
-                  {/* Cursor-following hover glow underline */}
-                  {hoveredNav === item.path && !isActive && (
-                    <motion.div
-                      layoutId="navbar-hover-underline"
-                      className="absolute bottom-1 left-3 right-3 h-[2px] rounded-full"
-                      style={{
-                        background: `linear-gradient(90deg, transparent, ${BRAND_ORANGE}, transparent)`,
-                        boxShadow: `0 0 8px ${BRAND_ORANGE}`,
-                      }}
-                      transition={{ type: 'spring', stiffness: 450, damping: 30 }}
-                    />
-                  )}
-                </>
-              )}
-            </NavLink>
-          ))}
-        </div>
+                    {/* Cursor-following hover glow underline */}
+                    {hoveredNav === item.path && !isActive && (
+                      <motion.div
+                        layoutId="navbar-hover-underline"
+                        className="absolute bottom-1 left-3 right-3 h-[2px] rounded-full"
+                        style={{
+                          background: `linear-gradient(90deg, transparent, ${BRAND_ORANGE}, transparent)`,
+                          boxShadow: `0 0 8px ${BRAND_ORANGE}`,
+                        }}
+                        transition={{
+                          type: 'spring',
+                          stiffness: 450,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                  </>
+                )}
+              </NavLink>
+            ))}
+          </div>
         </LayoutGroup>
 
         {/* Quick CTA Action with Magnetic physics */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden items-center gap-3 md:flex">
           <MagneticButton strength={0.25}>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider font-mono transition-all duration-300 text-amber-500 hover:text-[#030303] hover:shadow-[0_0_25px_rgba(245,148,30,0.4)]"
+              className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-amber-500 transition-all duration-300 hover:text-[#030303] hover:shadow-[0_0_25px_rgba(245,148,30,0.4)]"
               style={{
                 background: `linear-gradient(135deg, ${BRAND_ORANGE}25, ${BRAND_ORANGE}10)`,
                 border: `1.5px solid ${BRAND_ORANGE}50`,
@@ -156,7 +171,7 @@ export default function Navbar() {
         {/* Mobile Hamburger Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-xl text-neutral-400 hover:text-white border border-white/10"
+          className="rounded-xl border border-white/10 p-2 text-neutral-400 hover:text-white md:hidden"
           aria-label="Toggle menu"
         >
           {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -170,7 +185,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-b border-white/10 px-6 py-6 overflow-hidden"
+            className="overflow-hidden border-b border-white/10 px-6 py-6 md:hidden"
             style={{
               background: 'rgba(3, 3, 3, 0.96)',
               backdropFilter: 'blur(30px)',
@@ -182,10 +197,10 @@ export default function Navbar() {
                   key={item.path}
                   to={item.path}
                   className={({ isActive }) =>
-                    `px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                    `rounded-xl px-4 py-3 text-sm font-medium transition-all ${
                       isActive
-                        ? 'text-white font-semibold bg-amber-500/10 border border-amber-500/30'
-                        : 'text-neutral-400 hover:text-white bg-white/[0.02]'
+                        ? 'border border-amber-500/30 bg-amber-500/10 font-semibold text-white'
+                        : 'bg-white/[0.02] text-neutral-400 hover:text-white'
                     }`
                   }
                 >
@@ -195,7 +210,7 @@ export default function Navbar() {
 
               <Link
                 to="/contact"
-                className="mt-2 text-center py-3 rounded-xl text-xs font-semibold uppercase tracking-wider font-mono text-black font-display"
+                className="mt-2 rounded-xl py-3 text-center font-display font-mono text-xs font-semibold uppercase tracking-wider text-black"
                 style={{ background: BRAND_ORANGE }}
               >
                 Request a Quote

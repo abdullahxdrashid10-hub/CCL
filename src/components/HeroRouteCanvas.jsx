@@ -15,32 +15,79 @@ const HUBS = [
 
 // Great-circle style curve arcs connecting the hubs
 const ROUTES = [
-  { from: HUBS[0], to: HUBS[1], path: 'M 780 160 Q 660 110 540 220', duration: 4.2 },
-  { from: HUBS[1], to: HUBS[2], path: 'M 540 220 Q 480 140 420 130', duration: 3.8 },
-  { from: HUBS[2], to: HUBS[3], path: 'M 420 130 Q 320 80 220 180', duration: 4.6 },
-  { from: HUBS[3], to: HUBS[4], path: 'M 220 180 Q 170 190 120 240', duration: 3.5 },
-  { from: HUBS[0], to: HUBS[5], path: 'M 780 160 Q 730 220 670 260', duration: 3.2 },
-  { from: HUBS[5], to: HUBS[1], path: 'M 670 260 Q 600 250 540 220', duration: 3.6 },
-  { from: HUBS[0], to: HUBS[4], path: 'M 780 160 Q 450 40 120 240', duration: 5.4 },
+  {
+    from: HUBS[0],
+    to: HUBS[1],
+    path: 'M 780 160 Q 660 110 540 220',
+    duration: 4.2,
+  },
+  {
+    from: HUBS[1],
+    to: HUBS[2],
+    path: 'M 540 220 Q 480 140 420 130',
+    duration: 3.8,
+  },
+  {
+    from: HUBS[2],
+    to: HUBS[3],
+    path: 'M 420 130 Q 320 80 220 180',
+    duration: 4.6,
+  },
+  {
+    from: HUBS[3],
+    to: HUBS[4],
+    path: 'M 220 180 Q 170 190 120 240',
+    duration: 3.5,
+  },
+  {
+    from: HUBS[0],
+    to: HUBS[5],
+    path: 'M 780 160 Q 730 220 670 260',
+    duration: 3.2,
+  },
+  {
+    from: HUBS[5],
+    to: HUBS[1],
+    path: 'M 670 260 Q 600 250 540 220',
+    duration: 3.6,
+  },
+  {
+    from: HUBS[0],
+    to: HUBS[4],
+    path: 'M 780 160 Q 450 40 120 240',
+    duration: 5.4,
+  },
 ];
 
 export default function HeroRouteCanvas() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 flex items-center justify-center">
+    <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden">
       <svg
         viewBox="0 0 900 400"
-        className="w-full h-full max-w-[1400px] opacity-45 md:opacity-60 transition-opacity duration-1000"
+        className="h-full w-full max-w-[1400px] opacity-45 transition-opacity duration-1000 md:opacity-60"
         preserveAspectRatio="xMidYMid slice"
       >
         <defs>
           {/* Gradients for arcs */}
-          <linearGradient id="route-gradient-primary" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient
+            id="route-gradient-primary"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
             <stop offset="0%" stopColor={BRAND_BLUE} stopOpacity="0.8" />
             <stop offset="50%" stopColor={BRAND_ORANGE} stopOpacity="0.9" />
             <stop offset="100%" stopColor={BRAND_BLUE} stopOpacity="0.4" />
           </linearGradient>
 
-          <linearGradient id="route-gradient-subtle" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient
+            id="route-gradient-subtle"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
             <stop offset="0%" stopColor={BRAND_BLUE} stopOpacity="0.2" />
             <stop offset="50%" stopColor={BRAND_ORANGE} stopOpacity="0.4" />
             <stop offset="100%" stopColor={BRAND_BLUE} stopOpacity="0.1" />
@@ -54,7 +101,12 @@ export default function HeroRouteCanvas() {
         </defs>
 
         {/* Abstract subtle grid lines for logistics technical feel */}
-        <g opacity="0.07" stroke="#ffffff" strokeWidth="0.5" strokeDasharray="3,6">
+        <g
+          opacity="0.07"
+          stroke="#ffffff"
+          strokeWidth="0.5"
+          strokeDasharray="3,6"
+        >
           <line x1="0" y1="100" x2="900" y2="100" />
           <line x1="0" y1="200" x2="900" y2="200" />
           <line x1="0" y1="300" x2="900" y2="300" />

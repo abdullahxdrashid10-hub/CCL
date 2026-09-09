@@ -42,7 +42,7 @@ function OdometerCounter({ value, suffix = '', prefix = '', duration = 1.6 }) {
 
   if (typeof value !== 'number') {
     return (
-      <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-black/60 border border-white/10 font-mono tracking-wider text-gradient-brand shadow-inner">
+      <span className="text-gradient-brand inline-flex items-center rounded-lg border border-white/10 bg-black/60 px-2 py-0.5 font-mono tracking-wider shadow-inner">
         {value}
       </span>
     );
@@ -51,17 +51,20 @@ function OdometerCounter({ value, suffix = '', prefix = '', duration = 1.6 }) {
   return (
     <span
       ref={ref}
-      className="inline-flex items-center gap-0.5 px-2.5 py-0.5 rounded-lg bg-black/70 border border-white/10 font-mono tracking-tighter text-gradient-brand shadow-[inset_0_2px_4px_rgba(0,0,0,0.8)] relative overflow-hidden"
+      className="text-gradient-brand relative inline-flex items-center gap-0.5 overflow-hidden rounded-lg border border-white/10 bg-black/70 px-2.5 py-0.5 font-mono tracking-tighter shadow-[inset_0_2px_4px_rgba(0,0,0,0.8)]"
     >
       {/* Mechanical odometer bevel highlight */}
       <span className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
-      <span className="tabular-nums font-bold">
+      <span className="font-bold tabular-nums">
         {prefix}
-        {String(displayValue).padStart(typeof value === 'number' && value >= 10 ? 2 : 1, '0')}
+        {String(displayValue).padStart(
+          typeof value === 'number' && value >= 10 ? 2 : 1,
+          '0'
+        )}
         {suffix}
       </span>
       {isRolling && (
-        <span className="w-1 h-3 ml-1 rounded-full bg-amber-500/40 animate-pulse" />
+        <span className="ml-1 h-3 w-1 animate-pulse rounded-full bg-amber-500/40" />
       )}
     </span>
   );
@@ -96,7 +99,8 @@ const METRICS = [
     statSuffix: '',
     statPrefix: '',
     title: 'Direct Carrier Access',
-    description: 'Direct vessel & airline cargo comparison with transparent rates',
+    description:
+      'Direct vessel & airline cargo comparison with transparent rates',
   },
   {
     id: 'visibility',
@@ -106,30 +110,35 @@ const METRICS = [
     statSuffix: '%',
     statPrefix: '',
     title: 'Stage-Level Visibility',
-    description: 'Checkpoint milestone reporting from pre-clearance to final door',
+    description:
+      'Checkpoint milestone reporting from pre-clearance to final door',
   },
 ];
 
 export default function TrustMetricsStrip() {
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 md:px-12 -mt-8 relative z-20">
+    <div className="relative z-20 mx-auto -mt-8 w-full max-w-7xl px-6 md:px-12">
       <div
-        className="rounded-3xl p-6 md:p-8 backdrop-blur-2xl border transition-all duration-500"
+        className="rounded-3xl border p-6 backdrop-blur-2xl transition-all duration-500 md:p-8"
         style={{
-          background: 'linear-gradient(180deg, rgba(14, 18, 28, 0.85) 0%, rgba(6, 8, 12, 0.95) 100%)',
+          background:
+            'linear-gradient(180deg, rgba(14, 18, 28, 0.85) 0%, rgba(6, 8, 12, 0.95) 100%)',
           borderColor: 'rgba(245, 148, 30, 0.15)',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(26, 53, 128, 0.2)',
+          boxShadow:
+            '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(26, 53, 128, 0.2)',
         }}
       >
         {/* Top Manifest Header Strip */}
-        <div className="flex flex-wrap items-center justify-between pb-6 mb-6 border-b border-white/5 gap-3 text-xs font-mono">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-6 font-mono text-xs">
           <div className="flex items-center gap-2 text-neutral-400">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-white font-medium uppercase tracking-wider">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+            <span className="font-medium uppercase tracking-wider text-white">
               CCL Operations Framework
             </span>
-            <span className="text-neutral-600 hidden sm:inline">|</span>
-            <span className="text-neutral-500 hidden sm:inline">End-to-End Freight Standard</span>
+            <span className="hidden text-neutral-600 sm:inline">|</span>
+            <span className="hidden text-neutral-500 sm:inline">
+              End-to-End Freight Standard
+            </span>
           </div>
 
           <div className="flex items-center gap-4 text-[11px] text-neutral-500">
@@ -137,12 +146,14 @@ export default function TrustMetricsStrip() {
             <span>•</span>
             <span>PRE-BORDER CLEARANCE</span>
             <span>•</span>
-            <span className="text-amber-500 font-semibold">VERIFIED COMPLIANCE</span>
+            <span className="font-semibold text-amber-500">
+              VERIFIED COMPLIANCE
+            </span>
           </div>
         </div>
 
         {/* 4 Manifest Capability Cards with mechanical odometer counters */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {METRICS.map((item, index) => {
             const Icon = item.icon;
             return (
@@ -152,11 +163,11 @@ export default function TrustMetricsStrip() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="group relative p-4 rounded-2xl transition-all duration-300 hover:bg-white/[0.03] border border-transparent hover:border-white/5"
+                className="group relative rounded-2xl border border-transparent p-4 transition-all duration-300 hover:border-white/5 hover:bg-white/[0.03]"
               >
-                <div className="flex items-center justify-between mb-3">
+                <div className="mb-3 flex items-center justify-between">
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-105"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-105"
                     style={{
                       background: `linear-gradient(135deg, ${BRAND_BLUE}35, ${BRAND_BLUE}10)`,
                       border: `1px solid ${BRAND_BLUE}50`,
@@ -166,23 +177,23 @@ export default function TrustMetricsStrip() {
                     <Icon size={18} strokeWidth={2} />
                   </div>
 
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800">
+                  <span className="rounded border border-neutral-800 bg-neutral-900 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-neutral-500">
                     {item.badge}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2 mb-2">
+                <div className="mb-2 flex items-center gap-2">
                   <OdometerCounter
                     value={item.statValue}
                     suffix={item.statSuffix}
                     prefix={item.statPrefix}
                   />
-                  <h3 className="text-sm font-display font-semibold text-white group-hover:text-amber-400 transition-colors">
+                  <h3 className="font-display text-sm font-semibold text-white transition-colors group-hover:text-amber-400">
                     {item.title}
                   </h3>
                 </div>
 
-                <p className="text-neutral-400 text-xs leading-relaxed font-body">
+                <p className="font-body text-xs leading-relaxed text-neutral-400">
                   {item.description}
                 </p>
               </motion.div>

@@ -65,7 +65,7 @@ export default function Layout() {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen bg-[#030303] text-neutral-100 flex flex-col selection:bg-amber-500/20 selection:text-amber-400">
+    <div className="flex min-h-screen flex-col bg-[#030303] text-neutral-100 selection:bg-amber-500/20 selection:text-amber-400">
       {/* Branded initial load state */}
       <SplashScreen />
 
@@ -74,7 +74,7 @@ export default function Layout() {
 
       <Navbar />
 
-      <main className="flex-grow pt-20 relative">
+      <main className="relative flex-grow pt-20">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}

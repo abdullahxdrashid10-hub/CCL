@@ -7,7 +7,14 @@
  * ═══════════════════════════════════════════════════════════════
  */
 
-import { Ship, Plane, FileText, Warehouse, Truck, ShieldCheck } from 'lucide-react';
+import {
+  Ship,
+  Plane,
+  FileText,
+  Warehouse,
+  Truck,
+  ShieldCheck,
+} from 'lucide-react';
 
 const SERVICES = [
   {
