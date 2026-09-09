@@ -12,14 +12,15 @@ export default function ContactPage() {
 
   return (
     <div className="relative overflow-hidden py-12 md:py-16">
-      {/* Ambient Operations Command Center Background */}
-      <div className="pointer-events-none absolute inset-0 opacity-15">
+      {/* Cinematic Operations Command Center Dimmed Hero Backdrop */}
+      <div className="pointer-events-none absolute top-0 left-0 right-0 h-[520px] md:h-[620px] overflow-hidden z-0">
         <img
           src="/images/dispatch-operations.jpg"
-          alt=""
-          className="h-full w-full object-cover object-center"
+          alt="Connect Continents Operations Command Center"
+          className="h-full w-full object-cover object-center opacity-40 brightness-95 contrast-[1.05]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030303] via-[#030303]/80 to-[#030303]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-[#030303]/40 to-[#030303]/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/80 via-transparent to-[#030303]" />
       </div>
 
       {/* ── Header ── */}
