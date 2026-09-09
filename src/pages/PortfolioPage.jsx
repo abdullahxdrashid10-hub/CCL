@@ -117,10 +117,10 @@ export default function PortfolioPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/5 p-6 shadow-xl transition-all duration-300 hover:border-amber-500/30 sm:p-7"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/10 p-6 shadow-xl transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:border-amber-500/50 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.85),0_0_25px_rgba(245,148,30,0.22)] sm:p-7"
               style={{
                 background:
-                  'linear-gradient(180deg, rgba(16, 20, 30, 0.7) 0%, rgba(8, 10, 15, 0.85) 100%)',
+                  'linear-gradient(180deg, #101625 0%, #070a12 100%)',
               }}
             >
               <div>
