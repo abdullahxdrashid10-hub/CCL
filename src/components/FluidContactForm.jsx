@@ -25,7 +25,7 @@
  */
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'motion/react';
 import {
   Send,
   User,

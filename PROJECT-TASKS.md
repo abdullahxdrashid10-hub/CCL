@@ -98,8 +98,8 @@ This document audits everything currently built and active on the website versus
 - [x] **Real Founding Narrative**: *"What We Saw"* (industry pain points) & *"What We Built"* (CCL promise).
 - [x] **Real Founder Profiles & Expandable Overviews (Verbatim Copy)**:
   - **Abdul Rashid** — CEO & Founder (20+ years, Xpress Aviation Sea Export Manager, EMU MBA/BBA).
-  - **Arsalan Tabraiz** — COO & Founder (Senior leadership operations, branch management, client standard focus).
-- [x] **Interactive Features**: Single-card accordion expansion via click/tap with smooth Framer Motion height/opacity transitions, rotating chevron indicator, full keyboard navigation (`role="button"`, `aria-expanded`), and fallback initial badges (`AR` / `AT`).
+  - **Emir Khumair** — COO & Founder (Senior leadership operations, branch management, client standard focus).
+- [x] **Interactive Features**: Single-card accordion expansion via click/tap with smooth GPU-accelerated CSS grid transitions, rotating chevron indicator, full keyboard navigation (`role="button"`, `aria-expanded`), and branded monogram badges (`AR` / `EK` — zero founder photos per policy).
 
 #### 5. Interactive Fluid Contact Matrix (`src/components/FluidContactForm.jsx` & `src/pages/ContactPage.jsx`)
 - [x] **3-Step Validated Flow**:

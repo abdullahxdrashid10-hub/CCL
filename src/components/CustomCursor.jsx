@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion, useSpring, useMotionValue } from 'framer-motion';
+import { motion, useSpring, useMotionValue } from 'motion/react';
 
 const BRAND_ORANGE = '#F5941E';
 
@@ -38,29 +38,34 @@ export default function CustomCursor() {
     const handleMouseDown = () => setIsClicking(true);
     const handleMouseUp = () => setIsClicking(false);
 
+    let prevHovered = false;
     const handleMouseOver = (e) => {
       const target = e.target;
       if (!target || typeof target.closest !== 'function') return;
 
-      const isInteractive =
+      const isInteractive = Boolean(
         target.closest('button') ||
         target.closest('a') ||
         target.closest('input') ||
         target.closest('select') ||
         target.closest('textarea') ||
         target.closest('[role="button"]') ||
-        target.closest('.interactive-card');
+        target.closest('.interactive-card')
+      );
 
-      setIsHovered(Boolean(isInteractive));
+      if (isInteractive !== prevHovered) {
+        prevHovered = isInteractive;
+        setIsHovered(isInteractive);
+      }
     };
 
     const handleMouseLeaveWindow = () => setIsVisible(false);
     const handleMouseEnterWindow = () => setIsVisible(true);
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mousedown', handleMouseDown, { passive: true });
+    window.addEventListener('mouseup', handleMouseUp, { passive: true });
+    window.addEventListener('mouseover', handleMouseOver, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeaveWindow);
     document.addEventListener('mouseenter', handleMouseEnterWindow);
 
@@ -72,7 +77,7 @@ export default function CustomCursor() {
       document.removeEventListener('mouseleave', handleMouseLeaveWindow);
       document.removeEventListener('mouseenter', handleMouseEnterWindow);
     };
-  }, [mouseX, mouseY, isVisible]);
+  }, [mouseX, mouseY]);
 
   if (!isEnabled || !isVisible) return null;
 

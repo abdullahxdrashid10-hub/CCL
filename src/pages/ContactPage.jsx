@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Sparkles, ShieldCheck, Mail, Clock, Globe } from 'lucide-react';
 import FluidContactForm from '../components/FluidContactForm';
 
@@ -11,9 +11,19 @@ export default function ContactPage() {
   const initialService = searchParams.get('service') || '';
 
   return (
-    <div className="py-12 md:py-16">
+    <div className="relative py-12 md:py-16 overflow-hidden">
+      {/* Ambient Operations Command Center Background */}
+      <div className="absolute inset-0 pointer-events-none opacity-15">
+        <img
+          src="/images/dispatch-operations.jpg"
+          alt=""
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030303] via-[#030303]/80 to-[#030303]" />
+      </div>
+
       {/* ── Header ── */}
-      <div className="text-center max-w-3xl mx-auto px-6 mb-8">
+      <div className="relative z-10 text-center max-w-3xl mx-auto px-6 mb-8">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}

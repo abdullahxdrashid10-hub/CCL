@@ -20,7 +20,7 @@
  */
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'motion/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Compass, Users, ArrowRight, ChevronDown } from 'lucide-react';
@@ -75,9 +75,9 @@ const STORY_BLOCKS = [
           "Over 20 years in freight forwarding and logistics, most recently as a Branch Manager overseeing import/export operations, customs compliance, P&L, and vendor relationships. Spent 16 years at Xpress Aviation, rising from Customer Services Assistant to Sea Export Manager, managing LCL, FCL, and consolidated cargo across sea and air freight. Holds an MBA (Marketing) and a BBA from Eastern Mediterranean University. Brings two decades of hands-on operational and client-relationship experience to CCL's leadership.",
       },
       {
-        name: 'Arsalan Tabraiz',
+        name: 'Emir Khumair',
         role: 'COO & Founder',
-        initials: 'AT',
+        initials: 'EK',
         overview:
           'Brings hands-on senior leadership experience in freight and logistics operations, with a background managing day-to-day operations at the branch and management level. Co-founded CCL to bring the standards of communication, transparency, and reliability the industry too often lacks to clients directly.',
       },
@@ -161,28 +161,21 @@ function ScrollDrawnLine({ containerRef }) {
       strokeDashoffset: length,
     });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container,
-        start: 'top 80%',
-        end: 'bottom 20%',
-        scrub: 1.2,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    tl.to(path, {
-      strokeDashoffset: 0,
-      duration: 1,
-      ease: 'none',
-    });
-
-    return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach((st) => {
-        if (st.trigger === container) st.kill();
+    const ctx = gsap.context(() => {
+      gsap.to(path, {
+        strokeDashoffset: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: container,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          scrub: 0.8,
+          invalidateOnRefresh: true,
+        },
       });
-    };
+    }, container);
+
+    return () => ctx.revert();
   }, [containerRef]);
 
   return (
@@ -194,25 +187,25 @@ function ScrollDrawnLine({ containerRef }) {
       fill="none"
       aria-hidden="true"
     >
-      {/* Glow layer */}
+      {/* Background static faint track */}
+      <path
+        d="M 50 0 C 30 25, 70 35, 50 50 C 30 65, 70 75, 50 100"
+        stroke="rgba(245, 148, 30, 0.15)"
+        strokeWidth="1"
+        strokeLinecap="round"
+      />
+      {/* Dynamic scroll active path */}
       <path
         d="M 50 0 C 30 25, 70 35, 50 50 C 30 65, 70 75, 50 100"
         stroke={ACCENT_COLOR}
-        strokeWidth="0.8"
+        strokeWidth="1.5"
         strokeLinecap="round"
-        filter="url(#line-glow)"
         ref={pathRef}
-        style={{ willChange: 'stroke-dashoffset' }}
+        style={{
+          filter: 'drop-shadow(0 0 4px rgba(245, 148, 30, 0.6))',
+          willChange: 'stroke-dashoffset',
+        }}
       />
-      <defs>
-        <filter id="line-glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="1.5" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
     </svg>
   );
 }
@@ -484,8 +477,17 @@ export default function NarrativeTimeline() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    ScrollTrigger.refresh();
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    // Refresh ScrollTrigger to account for dynamic DOM layout
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh(true);
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+      // Kill any ScrollTrigger instances created within this section
+      ScrollTrigger.getAll()
+        .filter((st) => st.trigger && containerRef.current?.contains(st.trigger))
+        .forEach((st) => st.kill());
+    };
   }, []);
 
   return (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, LayoutGroup } from 'motion/react';
 import { Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
 import MagneticButton from './MagneticButton';
 
@@ -22,10 +22,16 @@ export default function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
+    let prevScrolled = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrolled = window.scrollY > 20;
+      if (scrolled !== prevScrolled) {
+        prevScrolled = scrolled;
+        setIsScrolled(scrolled);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -72,6 +78,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation Links with Active Pill + Hover Following Indicator */}
+        <LayoutGroup>
         <div
           className="hidden md:flex items-center gap-1 bg-neutral-950/80 px-3 py-1.5 rounded-full border border-white/5 relative"
           onMouseLeave={() => setHoveredNav(null)}
@@ -121,27 +128,23 @@ export default function Navbar() {
             </NavLink>
           ))}
         </div>
+        </LayoutGroup>
 
         {/* Quick CTA Action with Magnetic physics */}
         <div className="hidden md:flex items-center gap-3">
           <MagneticButton strength={0.25}>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider font-mono transition-all duration-300"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider font-mono transition-all duration-300 text-amber-500 hover:text-[#030303] hover:shadow-[0_0_25px_rgba(245,148,30,0.4)]"
               style={{
                 background: `linear-gradient(135deg, ${BRAND_ORANGE}25, ${BRAND_ORANGE}10)`,
                 border: `1.5px solid ${BRAND_ORANGE}50`,
-                color: BRAND_ORANGE,
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = BRAND_ORANGE;
-                e.currentTarget.style.color = '#030303';
-                e.currentTarget.style.boxShadow = `0 0 25px ${BRAND_ORANGE}40`;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = `linear-gradient(135deg, ${BRAND_ORANGE}25, ${BRAND_ORANGE}10)`;
-                e.currentTarget.style.color = BRAND_ORANGE;
-                e.currentTarget.style.boxShadow = 'none';
               }}
             >
               <span>Get Quote</span>

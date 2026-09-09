@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView } from 'motion/react';
 import { Ship, Globe, Activity, Layers } from 'lucide-react';
 
 const BRAND_BLUE = '#1A3580';

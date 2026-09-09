@@ -14,6 +14,7 @@ const SERVICES = [
     id: 'ocean-freight',
     title: 'Ocean Freight',
     icon: Ship,
+    image: '/images/service-ocean-freight.jpg',
     description:
       'Full container (FCL) and shared container (LCL) shipping, booked on the routes and carriers that fit your timeline and budget — with visibility into your shipment\u2019s status at every stage, not just at pickup and arrival.',
   },
@@ -21,6 +22,7 @@ const SERVICES = [
     id: 'air-freight',
     title: 'Air Freight',
     icon: Plane,
+    image: '/images/service-air-freight.jpg',
     description:
       'For cargo that can\u2019t wait on a vessel schedule. We compare rates and transit times across carriers so speed doesn\u2019t come with an unexplained markup.',
   },
@@ -28,6 +30,7 @@ const SERVICES = [
     id: 'customs-brokerage',
     title: 'Customs Brokerage & Documentation',
     icon: FileText,
+    image: '/images/service-customs-brokerage.jpg',
     description:
       'Classification, clearance, and paperwork handled end-to-end and checked before it becomes a problem at the border — not fixed after a shipment is already held up.',
   },
@@ -35,6 +38,7 @@ const SERVICES = [
     id: 'warehousing',
     title: 'Warehousing',
     icon: Warehouse,
+    image: '/images/service-warehousing.jpg',
     description:
       'Short- and long-term storage for cargo in transit or awaiting distribution, with clear handling and inventory visibility.',
   },
@@ -42,6 +46,7 @@ const SERVICES = [
     id: 'land-trucking',
     title: 'Land / Trucking Transport',
     icon: Truck,
+    image: '/images/service-land-freight.jpg',
     description:
       'Inland movement connecting ports to final delivery points, coordinated as part of the same shipment — not handed off to a disconnected third party.',
   },
@@ -49,6 +54,7 @@ const SERVICES = [
     id: 'cargo-insurance',
     title: 'Cargo Insurance',
     icon: ShieldCheck,
+    image: '/images/service-cargo-insurance.jpg',
     description:
       'Coverage options explained plainly at the time of booking, so you know what\u2019s protected before something goes wrong, not after.',
   },

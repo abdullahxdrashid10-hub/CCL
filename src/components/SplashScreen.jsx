@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 
 const BRAND_BLUE = '#1A3580';
 const BRAND_ORANGE = '#F5941E';

@@ -14,29 +14,24 @@
 | **Smooth Scroll** | Lenis smooth scroll + GSAP ScrollTrigger sync + route change scroll restoration | ✅ Live |
 | **Brand Colors** | Deep Royal Blue (`#1A3580`), Orange (`#F5941E`), Obsidian (`#030303`) | ✅ Live |
 | **Navigation & Layout** | Shared glassmorphism Navbar with active indicators + mobile drawer + Footer | ✅ Live |
-| **Services Showcase** | Full 6-service grid in `src/components/ServicesGrid.jsx` rendering verbatim data from `src/data/services.js` with mode tabs & quote deep-links | ✅ Live |
-| **Hero Section** | Confirmed headline *"Connecting Continents, Delivering Trust"*, CTAs, status indicator | ✅ Live |
+| **Services Showcase** | Full 6-service grid in `src/components/ServicesGrid.jsx` with high-contrast cinematic photography, hover zoom, mode tabs & quote deep-links | ✅ Live |
+| **Hero Section** | Headline *"Connecting Continents with Precision Freight"*, interactive route canvas + subtle aerial mega-hub background | ✅ Live |
 | **About: Founding Narrative** | Real client story: *"What We Saw"* & *"What We Built"* (No fake history) | ✅ Live |
-| **About: Founder Profiles** | Abdul Rashid (CEO & Founder) & Arsalan Tabraiz (COO & Founder) with click/tap expandable verbatim overviews, rotating chevron, & photo fallback | ✅ Live |
+| **About: Founder Profiles** | Abdul Rashid (CEO & Founder) & Emir Khumair (COO & Founder) with click/tap expandable verbatim overviews, rotating chevron, & monogram badges (Strictly zero founder photos) | ✅ Live |
 | **About: Scroll Line** | Dynamic SVG scroll-drawing path via GSAP ScrollTrigger | ✅ Live |
-| **Fluid Contact Form** | 3-step animated form, micro-bounce labels, validation shake, deep-link service pre-selection | ✅ Live (Simulated) |
+| **Fluid Contact Form** | 3-step animated form, micro-bounce labels, validation checkmarks, 100% client-side static workflow | ✅ Live |
 | **Portfolio Page** | Active trade corridor manifest framework (flagged awaiting real case study data) | ✅ Live |
 
 ---
 
-## 2. What's NOT Here Yet (To-Be-Built / Blockers)
+## 2. Architecture & Content Notes
 
-| Area | Missing Item | Description | Next Action |
+| Area | Feature | Description | Status |
 |---|---|---|---|
-| **Backend [BLOCKER]** | **Live Form Delivery** | `CONTACT_EMAIL` unset by default; `info@ccl.com` flagged as placeholder until real inbox/domain provided | Awaiting live inbox confirmation |
-| **UI Components** | **Hero Animated Route Motif** | Dynamic SVG great-circle route-line animation with pulsing hub nodes across continents | ✅ Live |
-| **UI Components** | **Trust Bar / Manifest Metrics** | Honest 4-pillar capability manifest (Modes, Corridors, Direct Carriers, Stage Visibility) | ✅ Live |
-| **UI Components** | **Portfolio Corridors** | 100% general capability & trade lane scope (Asia-Gulf ocean, Express air, Inland drayage) | ✅ Live |
-| **UI Components** | **Case Studies Details** | Real shipment stories from client (Origin ➔ Destination, cargo, problem solved) | Awaiting client examples |
-| **Assets** | **Logo Integration** | Transparent high-res CCL logo mark (`/ccl-mark.png` & `/ccl-logo.png`) integrated into Navbar, Hero, Footer, and Favicon | ✅ Live |
-| **Assets** | **Headshots** | Founder headshots for Abdul Rashid & Arsalan Tabraiz | Awaiting photo files |
-| **Backend** | **WhatsApp Click-to-Chat** | Direct link to WhatsApp chat with pre-filled message | Awaiting phone number |
-| **Footer** | **Physical Address** | Official registered office location & registration ID | Awaiting address details |
+| **Architecture** | **Zero Backend** | 100% Client-side static Jamstack site. No server, database, or external backend required. | ✅ Locked |
+| **Assets** | **Service Visuals** | 6 custom high-contrast logistics photography assets in `/images/` mapped to services. | ✅ Live |
+| **Assets** | **Hero Atmosphere** | Subtle aerial mega-hub night backdrop integrated behind dynamic canvas. | ✅ Live |
+| **Assets** | **Leadership Photos** | Strictly zero personal photos used — sleek monogram shields (`AR` & `EK`). | ✅ Locked |
 
 ---
 

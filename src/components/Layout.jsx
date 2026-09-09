@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useLocation, Outlet } from 'react-router-dom';
+import { AnimatePresence, motion } from 'motion/react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -15,13 +16,15 @@ export default function Layout() {
   const location = useLocation();
 
   useEffect(() => {
-    /* ── Initialize Lenis smooth scroll ── */
+    /* ── Initialize Lenis smooth scroll with optimal performance configuration ── */
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.9,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      smooth: true,
-      smoothTouch: false,
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
     });
 
     lenisRef.current = lenis;
@@ -34,23 +37,31 @@ export default function Layout() {
     };
 
     gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0);
+    // Use healthy lag smoothing to prevent stutter jumps during frame drops
+    gsap.ticker.lagSmoothing(500, 33);
 
     /* ── Cleanup ── */
     return () => {
-      lenis.destroy();
       gsap.ticker.remove(updateTicker);
+      lenis.destroy();
     };
   }, []);
 
-  // Recalculate GSAP ScrollTrigger and scroll to top on route change
+  // Kill all ScrollTrigger instances, scroll to top, and re-initialize on route change
   useEffect(() => {
+    // Kill stale ScrollTrigger instances from the previous page
+    ScrollTrigger.getAll().forEach((st) => st.kill());
+
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     }
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
+
+    // Give the new page DOM time to mount, then refresh all triggers
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh(true);
+    }, 150);
+
+    return () => clearTimeout(timer);
   }, [location.pathname]);
 
   return (
@@ -64,7 +75,17 @@ export default function Layout() {
       <Navbar />
 
       <main className="flex-grow pt-20 relative">
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       <Footer />

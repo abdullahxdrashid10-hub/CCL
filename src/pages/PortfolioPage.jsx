@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { Ship, Plane, Truck, ArrowRight, Sparkles, MapPin, CheckCircle2, ShieldCheck } from 'lucide-react';
 
@@ -9,6 +9,7 @@ const CORRIDORS = [
   {
     id: 'ocean-lane',
     icon: Ship,
+    image: '/images/corridor-asia-mideast.jpg',
     mode: 'Ocean Freight Corridor',
     title: 'Asia ➔ Arabian Gulf & Europe',
     badge: 'Standard Trade Lane',
@@ -19,6 +20,7 @@ const CORRIDORS = [
   {
     id: 'air-lane',
     icon: Plane,
+    image: '/images/corridor-transpacific.jpg',
     mode: 'Express Air Cargo',
     title: 'Global Air Cargo Routing',
     badge: 'Priority Trade Lane',
@@ -29,6 +31,7 @@ const CORRIDORS = [
   {
     id: 'inland-lane',
     icon: Truck,
+    image: '/images/corridor-transatlantic.jpg',
     mode: 'Inland Transport',
     title: 'Port-to-Door Drayage & Trucking',
     badge: 'Regional Transit',
@@ -80,7 +83,7 @@ export default function PortfolioPage() {
         </motion.p>
       </div>
 
-      {/* ── General Lane Capabilities Grid (100% General Scope, No Fake Shipments) ── */}
+      {/* ── General Lane Capabilities Grid ── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
         {CORRIDORS.map((corridor, index) => {
           const Icon = corridor.icon;
@@ -91,28 +94,63 @@ export default function PortfolioPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="rounded-3xl p-8 border border-white/5 relative overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:border-amber-500/30"
+              className="rounded-3xl p-6 sm:p-7 border border-white/5 relative overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:border-amber-500/30 shadow-xl"
               style={{
                 background: 'linear-gradient(180deg, rgba(16, 20, 30, 0.7) 0%, rgba(8, 10, 15, 0.85) 100%)',
               }}
             >
               <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
-                    style={{
-                      background: `${BRAND_BLUE}40`,
-                      border: `1px solid ${BRAND_BLUE}60`,
-                      color: BRAND_ORANGE,
-                    }}
-                  >
-                    <Icon size={22} />
-                  </div>
+                {/* Corridor Image Header */}
+                {corridor.image && (
+                  <div className="relative h-44 sm:h-48 w-full rounded-2xl overflow-hidden mb-6 border border-white/10 bg-neutral-900">
+                    <img
+                      src={corridor.image}
+                      alt={corridor.title}
+                      className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#080a0f] via-black/20 to-black/40" />
 
-                  <span className="text-[10px] font-mono text-neutral-400 bg-white/5 px-2.5 py-1 rounded-full border border-white/5">
-                    {corridor.badge}
-                  </span>
-                </div>
+                    {/* Overlaid Badges */}
+                    <div className="absolute top-3 left-3">
+                      <div
+                        className="w-11 h-11 rounded-xl flex items-center justify-center backdrop-blur-md transition-all duration-500 group-hover:scale-110 shadow-lg"
+                        style={{
+                          background: `linear-gradient(135deg, ${BRAND_BLUE}90, ${BRAND_BLUE}40)`,
+                          border: `1px solid ${BRAND_BLUE}`,
+                          color: BRAND_ORANGE,
+                        }}
+                      >
+                        <Icon size={20} strokeWidth={2} />
+                      </div>
+                    </div>
+
+                    <div className="absolute top-3 right-3">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-300 px-2.5 py-1 rounded-md border border-white/15 bg-black/60 backdrop-blur-md">
+                        {corridor.badge}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {!corridor.image && (
+                  <div className="flex items-center justify-between mb-6">
+                    <div
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
+                      style={{
+                        background: `${BRAND_BLUE}40`,
+                        border: `1px solid ${BRAND_BLUE}60`,
+                        color: BRAND_ORANGE,
+                      }}
+                    >
+                      <Icon size={22} />
+                    </div>
+
+                    <span className="text-[10px] font-mono text-neutral-400 bg-white/5 px-2.5 py-1 rounded-full border border-white/5">
+                      {corridor.badge}
+                    </span>
+                  </div>
+                )}
 
                 <span className="text-xs font-mono uppercase tracking-widest text-amber-500 block mb-1">
                   {corridor.mode}
@@ -151,14 +189,24 @@ export default function PortfolioPage() {
         })}
       </div>
 
-      {/* ── Custom Route Inquiry Notice ── */}
+      {/* ── Custom Route Inquiry Notice with Panoramic Backdrop ── */}
       <div
-        className="rounded-3xl p-8 md:p-10 border border-white/5 flex flex-col md:flex-row items-center justify-between gap-6"
+        className="relative rounded-3xl p-8 md:p-10 border border-white/10 overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl"
         style={{
-          background: 'linear-gradient(135deg, rgba(26, 53, 128, 0.15) 0%, rgba(3, 3, 3, 0.8) 100%)',
+          background: 'linear-gradient(135deg, rgba(26, 53, 128, 0.25) 0%, rgba(3, 3, 3, 0.95) 100%)',
         }}
       >
-        <div className="flex items-start gap-4">
+        {/* Ambient Panoramic Freight Background */}
+        <div className="absolute inset-0 pointer-events-none opacity-20">
+          <img
+            src="/images/cta-panoramic-freight.jpg"
+            alt=""
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#030303] via-[#030303]/80 to-transparent" />
+        </div>
+
+        <div className="relative z-10 flex items-start gap-4">
           <div
             className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
             style={{
@@ -181,7 +229,7 @@ export default function PortfolioPage() {
 
         <Link
           to="/contact"
-          className="shrink-0 px-7 py-3.5 rounded-xl text-xs font-semibold uppercase tracking-wider font-mono text-black font-display"
+          className="relative z-10 shrink-0 px-7 py-3.5 rounded-xl text-xs font-semibold uppercase tracking-wider font-mono text-black font-display shadow-lg hover:scale-105 transition-transform"
           style={{ background: BRAND_ORANGE }}
         >
           Request Custom Route

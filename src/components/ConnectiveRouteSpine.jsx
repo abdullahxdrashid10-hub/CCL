@@ -1,34 +1,25 @@
 import { useEffect, useState } from 'react';
+import { motion, useScroll, useSpring } from 'motion/react';
 
 const BRAND_BLUE = '#1A3580';
 const BRAND_ORANGE = '#F5941E';
 
 export default function ConnectiveRouteSpine() {
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 300,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
     const handler = (e) => setPrefersReducedMotion(e.matches);
     mediaQuery.addEventListener('change', handler);
-
-    const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalScroll > 0) {
-        setScrollProgress(Math.min(Math.max(window.scrollY / totalScroll, 0), 1));
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      mediaQuery.removeEventListener('change', handler);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
   return (
@@ -44,12 +35,12 @@ export default function ConnectiveRouteSpine() {
             }}
           />
 
-          {/* Dynamic scroll-following glowing active path */}
+          {/* Dynamic scroll-following glowing active path (GPU accelerated scaleY) */}
           {!prefersReducedMotion && (
-            <div
-              className="absolute top-0 left-0 w-[2px] origin-top rounded-full transition-all duration-150"
+            <motion.div
+              className="absolute top-0 left-0 w-[2px] h-full origin-top rounded-full will-change-transform"
               style={{
-                height: `${scrollProgress * 100}%`,
+                scaleY,
                 background: `linear-gradient(180deg, ${BRAND_BLUE} 0%, ${BRAND_ORANGE} 50%, #FFAA40 100%)`,
                 boxShadow: `0 0 12px ${BRAND_ORANGE}60, 0 0 20px ${BRAND_BLUE}80`,
               }}

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Compass, ArrowLeft, Globe, Shield, Send } from 'lucide-react';
 import MagneticButton from '../components/MagneticButton';
 

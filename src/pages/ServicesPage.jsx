@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, ArrowRight, Sparkles, CheckCircle2, Clock, Globe } from 'lucide-react';
 import ServicesGrid from '../components/ServicesGrid';
@@ -54,12 +54,22 @@ export default function ServicesPage() {
 
       {/* ── CCL Service Guarantee Strip ── */}
       <div
-        className="mt-24 rounded-3xl p-8 md:p-12 relative overflow-hidden border border-white/5"
+        className="mt-24 rounded-3xl p-8 md:p-12 relative overflow-hidden border border-white/10 shadow-2xl"
         style={{
-          background: 'linear-gradient(135deg, rgba(26, 53, 128, 0.15) 0%, rgba(3, 3, 3, 0.9) 100%)',
+          background: 'linear-gradient(135deg, rgba(26, 53, 128, 0.25) 0%, rgba(3, 3, 3, 0.95) 100%)',
         }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Ambient Panoramic Freight Horizon Background */}
+        <div className="absolute inset-0 pointer-events-none opacity-20">
+          <img
+            src="/images/cta-panoramic-freight.jpg"
+            alt=""
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#030303] via-[#030303]/80 to-transparent" />
+        </div>
+
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="flex items-start gap-4">
             <div
               className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"

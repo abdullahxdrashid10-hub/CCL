@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 const BRAND_BLUE = '#1A3580';
 const BRAND_ORANGE = '#F5941E';
@@ -107,7 +107,6 @@ export default function HeroRouteCanvas() {
             <motion.circle
               cx={hub.x}
               cy={hub.y}
-              r="8"
               fill="none"
               stroke={BRAND_ORANGE}
               strokeWidth="1"

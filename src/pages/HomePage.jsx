@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowRight, Globe, Shield, Sparkles, CheckCircle2 } from 'lucide-react';
 import HeroRouteCanvas from '../components/HeroRouteCanvas';
 import ConnectiveRouteSpine from '../components/ConnectiveRouteSpine';
@@ -13,13 +12,10 @@ const BRAND_BLUE = '#1A3580';
 const BRAND_ORANGE = '#F5941E';
 
 export default function HomePage() {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { scrollY } = useScroll();
+  const canvasY = useTransform(scrollY, [0, 800], [0, 180]);
+  const glow1Y = useTransform(scrollY, [0, 800], [0, 220]);
+  const glow2Y = useTransform(scrollY, [0, 800], [0, 120]);
 
   return (
     <div className="relative overflow-hidden bg-noise">
@@ -33,27 +29,40 @@ export default function HomePage() {
           background: `radial-gradient(ellipse 70% 55% at 50% 45%, ${BRAND_BLUE}20, #030303 85%)`,
         }}
       >
-        {/* Animated Abstract Great-Circle Route Canvas with Parallax Depth */}
-        <div
-          className="absolute inset-0 pointer-events-none transition-transform duration-75"
-          style={{ transform: `translateY(${scrollY * 0.25}px)` }}
+        {/* Cinematic Aerial Logistics Hub Background (Subtle Texture) */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none will-change-transform opacity-20"
+          style={{ y: canvasY }}
+        >
+          <img
+            src="/images/hero-aerial-hub.jpg"
+            alt=""
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/90 via-[#030303]/75 to-[#030303]" />
+        </motion.div>
+
+        {/* Animated Abstract Great-Circle Route Canvas with GPU Parallax Depth */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none will-change-transform"
+          style={{ y: canvasY }}
         >
           <HeroRouteCanvas />
-        </div>
+        </motion.div>
 
-        {/* Ambient glow orbs with multi-depth parallax */}
-        <div
-          className="absolute top-1/4 -left-32 w-96 h-96 rounded-full pointer-events-none blur-[140px] opacity-20 transition-transform duration-100"
+        {/* Ambient glow orbs with GPU parallax */}
+        <motion.div
+          className="absolute top-1/4 -left-32 w-96 h-96 rounded-full pointer-events-none blur-[100px] opacity-20 will-change-transform"
           style={{
             background: BRAND_BLUE,
-            transform: `translateY(${scrollY * 0.35}px)`,
+            y: glow1Y,
           }}
         />
-        <div
-          className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full pointer-events-none blur-[140px] opacity-15 transition-transform duration-100"
+        <motion.div
+          className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full pointer-events-none blur-[100px] opacity-15 will-change-transform"
           style={{
             background: BRAND_ORANGE,
-            transform: `translateY(${scrollY * 0.18}px)`,
+            y: glow2Y,
           }}
         />
 
@@ -134,19 +143,11 @@ export default function HomePage() {
             <MagneticButton strength={0.2}>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-display font-semibold text-sm transition-all duration-300 shadow-lg"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-display font-semibold text-sm transition-all duration-300 shadow-lg hover:-translate-y-0.5 hover:shadow-[0_0_40px_rgba(245,148,30,0.4)]"
                 style={{
                   background: BRAND_ORANGE,
                   color: '#030303',
                   boxShadow: `0 0 30px ${BRAND_ORANGE}35`,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = `0 0 40px ${BRAND_ORANGE}60`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = `0 0 30px ${BRAND_ORANGE}35`;
                 }}
               >
                 <span>Request a Quote</span>
@@ -157,18 +158,10 @@ export default function HomePage() {
             <MagneticButton strength={0.15}>
               <Link
                 to="/services"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-display font-semibold text-sm text-neutral-300 hover:text-white transition-all duration-300"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-display font-semibold text-sm text-neutral-300 hover:text-white transition-all duration-300 hover:border-amber-500/40 hover:bg-white/[0.08]"
                 style={{
                   background: 'rgba(255, 255, 255, 0.04)',
                   border: '1.5px solid rgba(255, 255, 255, 0.1)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = `${BRAND_ORANGE}60`;
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
                 }}
               >
                 <span>Explore Solutions</span>
@@ -220,6 +213,16 @@ export default function HomePage() {
           borderTop: '1px solid rgba(255,255,255,0.05)',
         }}
       >
+        {/* Ambient Panoramic Freight Horizon Background */}
+        <div className="absolute inset-0 pointer-events-none opacity-25">
+          <img
+            src="/images/cta-panoramic-freight.jpg"
+            alt=""
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#030303] via-transparent to-[#030303]" />
+        </div>
+
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <span className="text-xs font-mono uppercase tracking-widest text-amber-500 mb-4 block">
             Ready to Move Your Cargo?
@@ -233,7 +236,7 @@ export default function HomePage() {
           <MagneticButton strength={0.25}>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-9 py-4 rounded-2xl font-display font-semibold text-sm text-black transition-all duration-300"
+              className="inline-flex items-center gap-2 px-9 py-4 rounded-2xl font-display font-semibold text-sm text-black transition-all duration-300 hover:scale-105"
               style={{
                 background: BRAND_ORANGE,
                 boxShadow: `0 0 35px ${BRAND_ORANGE}40`,
