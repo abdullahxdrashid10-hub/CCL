@@ -1,7 +1,9 @@
 # CCL Website — Project Status & Progress Tracker
 
-**Last updated:** 21 Aug 2026  
+**Last updated:** 25 Sept 2026  
 **Dev server:** http://localhost:5173/  
+**Git Remote:** https://github.com/abdullahxdrashid10-hub/CCL.git (Branch: `main`)  
+**Deployment Ready:** Production build verified (`dist/`), SPA routing rewrites configured (`vercel.json`, `_redirects`).  
 **Detailed Task Breakdown:** [PROJECT-TASKS.md](file:///C:/Users/assau/OneDrive/Desktop/TESTMOCK%201/PROJECT-TASKS.md)
 
 ---
@@ -32,6 +34,7 @@
 | **Assets** | **Service Visuals** | 6 custom high-contrast logistics photography assets in `/images/` mapped to services. | ✅ Live |
 | **Assets** | **Hero Atmosphere** | Subtle aerial mega-hub night backdrop integrated behind dynamic canvas. | ✅ Live |
 | **Assets** | **Leadership Photos** | Strictly zero personal photos used — sleek monogram shields (`AR` & `EK`). | ✅ Locked |
+| **Hosting & DNS** | **Vercel / SPA Ready** | SPA rewrites (`vercel.json` & `public/_redirects`) active to avoid 404s. Configured for Namecheap custom domain. | ✅ Live |
 
 ---
 
